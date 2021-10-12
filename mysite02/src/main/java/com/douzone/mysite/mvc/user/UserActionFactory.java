@@ -26,14 +26,6 @@ public class UserActionFactory  extends ActionFactory{
 			action = new LoginAction();
 		}else if("logout".equals(actionName)) {
 			action = new LogoutAction();
-		}else if("guestbook".equals(actionName)) {
-			action = new GuestBookAction();
-		}else if("guestbookadd".equals(actionName)) {
-			action = new GuestBookAddAction();
-		}else if("guestbookdeleteform".equals(actionName)) {
-			action = new GuestBookDeleteFormAction();
-		}else if("guestbookdelete".equals(actionName)) {
-			action = new GuestBookDeleteAction();
 		}else {
 			action = new MainAction();
 		}

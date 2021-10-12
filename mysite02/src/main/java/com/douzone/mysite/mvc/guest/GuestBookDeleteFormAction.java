@@ -14,7 +14,7 @@ public class GuestBookDeleteFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		MvcUtil.forward("user/guestbookdeleteform", request, response);
+		MvcUtil.forward("guestbook/deleteform", request, response);
 
 	}
 

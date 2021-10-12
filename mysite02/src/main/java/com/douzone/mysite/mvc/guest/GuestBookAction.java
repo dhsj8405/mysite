@@ -23,7 +23,7 @@ public class GuestBookAction implements Action {
 		List<GuestbookVo> list = dao.findAll();
 		
 		request.setAttribute("list", list);
-		MvcUtil.forward("user/guestbook", request, response);
+		MvcUtil.forward("guestbook/list", request, response);
 	}
 
 }

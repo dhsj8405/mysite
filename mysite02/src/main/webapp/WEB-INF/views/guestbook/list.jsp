@@ -20,8 +20,8 @@ List<GuestbookVo> list = (List<GuestbookVo>)request.getAttribute("list");
 		<div id="content">
 			<div id="user">
 			
-				<form action="<%=request.getContextPath() %>/user" method="post">
-				<input type = "hidden" name = "a" value = "guestbookadd">
+				<form action="<%=request.getContextPath() %>/guest" method="post">
+				<input type = "hidden" name = "a" value = "add">
 				<table border=1 width=500>
 					<tr>
 						<td>이름</td><td><input type="text" name="name"></td>
@@ -45,7 +45,7 @@ List<GuestbookVo> list = (List<GuestbookVo>)request.getAttribute("list");
 						<td><%=index--%></td>
 						<td><%=vo.getName() %></td>
 						<td><%=vo.getRegDate() %></td>
-						<td><a href="<%=request.getContextPath()%>/user?a=guestbookdeleteform&no=<%=vo.getNo()%>">삭제</a></td>
+						<td><a href="<%=request.getContextPath()%>/guest?a=deleteform&no=<%=vo.getNo()%>">삭제</a></td>
 					</tr>
 					<tr>
 						<td colspan=4><%=vo.getMessage()%></td>

@@ -19,7 +19,7 @@ public class GuestBookDeleteAction implements Action {
 		String password = request.getParameter("password");
 		new GuestbookDao().delete(deleteNo, password);
 		//리다이렉트 응답
-		MvcUtil.redirect("/mysite02/user?a=guestbook", request, response);
+		MvcUtil.redirect("/mysite02/guest?a=list", request, response);
 	}
 
 }

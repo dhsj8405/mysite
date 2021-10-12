@@ -12,14 +12,14 @@
 
 		<div id="content">
 			<div id="user">
-				<form method="post" action="<%=request.getContextPath()%>/user?a=delete">
+				<form method="post" action="<%=request.getContextPath()%>/guest?a=delete">
 					<input type="hidden" name="no" value="<%=request.getParameter("no") %>">
 					<input type="password" name="password" >
 					<input type="submit" value="확인">
 				</form>
 				
 				<br>
-				<td><a href="/guestbook02/gb">메인으로 돌아가기</a></td>
+				<td><a href="<%=request.getContextPath()%>/guest?a=guestbook">메인으로 돌아가기</a></td>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/includes/navigation.jsp" />

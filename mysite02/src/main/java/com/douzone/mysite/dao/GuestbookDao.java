@@ -128,12 +128,11 @@ public class GuestbookDao {
 					+ " where no =?"
 					+ " and password=?";
 			pstmt = conn.prepareStatement(sql);
-			System.out.println(sql);
+			
 //			//4. 바인딩(binding)	
 			pstmt.setLong(1, no);
-			System.out.println(no);
 			pstmt.setString(2, password);
-			System.out.println(password);
+			
 //			
 			
 			//5. SQL 실행

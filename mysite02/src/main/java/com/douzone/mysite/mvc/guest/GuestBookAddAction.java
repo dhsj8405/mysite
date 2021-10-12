@@ -27,7 +27,7 @@ public class GuestBookAddAction implements Action {
 		vo.setMessage(message);
 		
 		new GuestbookDao().insert(vo);
-		MvcUtil.redirect("/mysite02/user?a=guestbook", request, response);
+		MvcUtil.redirect("/mysite02/guest?a=list", request, response);
 	}
 
 }
