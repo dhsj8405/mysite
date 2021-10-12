@@ -11,7 +11,7 @@ import com.douzone.mysite.dao.GuestbookDao;
 import comd.douzone.web.mvc.Action;
 import comd.douzone.web.util.MvcUtil;
 
-public class GuestBookDeleteAction implements Action {
+public class DeleteAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

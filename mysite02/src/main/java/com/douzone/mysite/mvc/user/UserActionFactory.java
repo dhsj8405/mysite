@@ -1,9 +1,9 @@
 package com.douzone.mysite.mvc.user;
 
-import com.douzone.mysite.mvc.guest.GuestBookAction;
-import com.douzone.mysite.mvc.guest.GuestBookAddAction;
-import com.douzone.mysite.mvc.guest.GuestBookDeleteAction;
-import com.douzone.mysite.mvc.guest.GuestBookDeleteFormAction;
+import com.douzone.mysite.mvc.guest.ListAction;
+import com.douzone.mysite.mvc.guest.AddAction;
+import com.douzone.mysite.mvc.guest.DeleteAction;
+import com.douzone.mysite.mvc.guest.DeleteFormAction;
 import com.douzone.mysite.mvc.main.MainAction;
 
 import comd.douzone.web.mvc.Action;

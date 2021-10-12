@@ -13,13 +13,13 @@ public class GuestActionFactory  extends ActionFactory{
 		Action action = null;
 		
 		if("list".equals(actionName)) {
-			action = new GuestBookAction();
+			action = new ListAction();
 		}else if("add".equals(actionName)) {
-			action = new GuestBookAddAction();
+			action = new AddAction();
 		}else if("deleteform".equals(actionName)) {
-			action = new GuestBookDeleteFormAction();
+			action = new DeleteFormAction();
 		}else if("delete".equals(actionName)) {
-			action = new GuestBookDeleteAction();
+			action = new DeleteAction();
 		}else {
 			action = new MainAction();
 		}
