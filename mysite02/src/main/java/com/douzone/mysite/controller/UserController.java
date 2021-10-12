@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import comd.douzone.web.util.MvcUtil;
+import com.douzone.mysite.mvc.user.UserActionFactory;
+
+import comd.douzone.web.mvc.Action;
+import comd.douzone.web.mvc.ActionFactory;
 
 
 public class UserController extends HttpServlet {
@@ -16,16 +19,12 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String action = request.getParameter("a");
-		if("joinform".equals(action)) {
-			MvcUtil.forward("/WEB-INF/views/user/joinform.jsp", request, response);	
-		}else if("join".equals(action)) {
+		String actionName = request.getParameter("a");
+		
+		ActionFactory af = new UserActionFactory();
+		Action action = af.getAction(actionName);
+		action.execute(request, response);
 			
-		}else {
-			MvcUtil.redirect("/mysite02",request, response);
-		}
-		
-		
 	}
 
 
