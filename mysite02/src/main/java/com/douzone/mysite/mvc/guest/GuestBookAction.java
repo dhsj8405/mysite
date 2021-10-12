@@ -1,0 +1,29 @@
+package com.douzone.mysite.mvc.guest;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.douzone.mysite.dao.GuestbookDao;
+import com.douzone.mysite.vo.GuestbookVo;
+
+import comd.douzone.web.mvc.Action;
+import comd.douzone.web.util.MvcUtil;
+
+public class GuestBookAction implements Action {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");		
+		
+		GuestbookDao dao = new GuestbookDao();	
+		List<GuestbookVo> list = dao.findAll();
+		
+		request.setAttribute("list", list);
+		MvcUtil.forward("user/guestbook", request, response);
+	}
+
+}
