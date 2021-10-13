@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 		<div id="navigation">
 			<ul>
-				<li><a href="<%=request.getContextPath() %>">우동현</a></li>
-				<li><a href="<%=request.getContextPath() %>/guest?a=list">방명록</a></li>
-				<li><a href="<%=request.getContextPath() %>/board">게시판</a></li>
+				<li><a href="${pageContext.request.contextPath }">우동현</a></li>
+				<li><a href="${pageContext.request.contextPath }/guest?a=list">방명록</a></li>
+				<li><a href="${pageContext.request.contextPath }/board">게시판</a></li>
 			</ul>
 		</div>

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
 
 import com.douzone.mysite.vo.UserVo;
 
@@ -38,7 +39,7 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			
 			//0개 or 1개 밖에 없기 때문에 if문 
-			if(rs.next()) {
+			while(rs.next()) {
 				Long no = rs.getLong(1);
 				String name = rs.getString(2);
 								
@@ -130,10 +131,70 @@ public class UserDao {
 
 		return conn;
 	}
-
 	public UserVo findByNo(Long no) {
 		
-		return null;
+		UserVo vo = null;
+		//jdbc를 이용하기위한 인터페이스
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			
+			//3. SQL 준비
+			String sql = 
+					"update user"
+					+ "   set name = ?,"
+					+ "	   password = ?"
+					+ "       gender = ?"
+					+ " where user.no = ?;";
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩(binding)
+			HttpServletRequest request = null;
+//			request.setCharacterEncoding("utf-8");
+			System.out.println(	request.getParameter("name"));
+//			pstmt.setString(1, name);
+//			pstmt.setString(2, password);
+//			pstmt.setString(3, gender);
+//			pstmt.setString(4, no);
+			
+			
+			//5. SQL 실행
+			rs = pstmt.executeQuery();
+			
+			//0개 or 1개 밖에 없기 때문에 if문 
+//			if(rs.next()) {
+//				Long no = rs.getLong(1);
+//				String name = rs.getString(2);
+//								
+//				
+//				vo = new UserVo();
+//				vo.setNo(no);
+//				vo.setName(name);
+//				
+//			}
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			// clean up
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
 	}
-	
 }
