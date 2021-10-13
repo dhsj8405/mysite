@@ -1,10 +1,10 @@
-package com.douzone.mysite.mvc.guest;
+package com.douzone.mysite.mvc.guestbook;
 
 
 import com.douzone.web.mvc.Action;
 import com.douzone.web.mvc.ActionFactory;
 
-public class GuestActionFactory  extends ActionFactory{
+public class GuestbookActionFactory  extends ActionFactory{
 
 	@Override
 	public Action getAction(String actionName) {

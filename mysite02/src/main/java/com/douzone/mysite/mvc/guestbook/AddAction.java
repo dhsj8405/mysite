@@ -1,4 +1,4 @@
-package com.douzone.mysite.mvc.guest;
+package com.douzone.mysite.mvc.guestbook;
 
 import java.io.IOException;
 
@@ -7,18 +7,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mysite.dao.GuestbookDao;
+import com.douzone.mysite.vo.GuestbookVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class DeleteAction implements Action {
+public class AddAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long deleteNo = Long.parseLong(request.getParameter("no"));
+
+		String name = request.getParameter("name");
 		String password = request.getParameter("password");
-		new GuestbookDao().delete(deleteNo, password);
-		//리다이렉트 응답
-		MvcUtil.redirect("/mysite02/guest?a=list", request, response);
+		String message = request.getParameter("message");
+		
+		GuestbookVo vo = new GuestbookVo();
+		vo.setName(name);
+		vo.setPassword(password);
+		vo.setMessage(message);
+		
+		new GuestbookDao().insert(vo);
+		MvcUtil.redirect("/mysite02/guestbook?a=list", request, response);
 	}
 
 }
