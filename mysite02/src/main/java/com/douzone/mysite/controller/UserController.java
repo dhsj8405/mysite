@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mysite.mvc.user.UserActionFactory;
-
-import comd.douzone.web.mvc.Action;
-import comd.douzone.web.mvc.ActionFactory;
+import com.douzone.web.mvc.Action;
+import com.douzone.web.mvc.ActionFactory;
 
 
 public class UserController extends HttpServlet {

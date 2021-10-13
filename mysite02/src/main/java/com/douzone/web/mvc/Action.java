@@ -1,4 +1,4 @@
-package comd.douzone.web.mvc;
+package com.douzone.web.mvc;
 
 import java.io.IOException;
 

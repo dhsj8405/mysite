@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mysite.mvc.main.MainActionFactory;
-
-import comd.douzone.web.mvc.Action;
-import comd.douzone.web.mvc.ActionFactory;
+import com.douzone.web.mvc.Action;
+import com.douzone.web.mvc.ActionFactory;
 
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

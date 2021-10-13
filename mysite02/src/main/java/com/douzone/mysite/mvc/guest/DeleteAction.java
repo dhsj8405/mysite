@@ -7,9 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mysite.dao.GuestbookDao;
-
-import comd.douzone.web.mvc.Action;
-import comd.douzone.web.util.MvcUtil;
+import com.douzone.web.mvc.Action;
+import com.douzone.web.util.MvcUtil;
 
 public class DeleteAction implements Action {
 

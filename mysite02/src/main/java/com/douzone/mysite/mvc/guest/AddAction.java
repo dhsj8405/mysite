@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mysite.dao.GuestbookDao;
 import com.douzone.mysite.vo.GuestbookVo;
-
-import comd.douzone.web.mvc.Action;
-import comd.douzone.web.util.MvcUtil;
+import com.douzone.web.mvc.Action;
+import com.douzone.web.util.MvcUtil;
 
 public class AddAction implements Action {
 
