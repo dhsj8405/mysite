@@ -35,6 +35,7 @@ public class UpdateAction implements Action {
 		vo.setGender(gender);
 		
 		new UserDao().update(vo);
+		session.setAttribute("authUser", vo);
 		MvcUtil.forward("/main/index", request, response);
 	}
 
