@@ -13,14 +13,15 @@ import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class WirteAction implements Action {
+public class modifyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
+		
+		Long no = Long.parseLong(request.getParameter("no"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		BoardVo vo = new BoardVo();
@@ -28,10 +29,12 @@ public class WirteAction implements Action {
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setUserNo(authUser.getNo());
-		vo.setOrderNo(0);
-		vo.setDept(0);
+		vo.setNo(no);
 
-		new BoardDao().insert(vo);
-		MvcUtil.redirect("/mysite02/board?a=list", request, response);	}
+
+		new BoardDao().update(vo);
+		MvcUtil.redirect("/mysite02/board?a=list", request, response);
+
+	}
 
 }

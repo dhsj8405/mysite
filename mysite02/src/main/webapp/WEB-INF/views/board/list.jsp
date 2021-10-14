@@ -31,20 +31,25 @@
 					<c:set var='count' value='${fn:length(list) }' />
 					
 					<c:forEach items='${list }' var='vo' varStatus='status'>
+
 						<tr>
+						
 							<td>${vo.no }</td>
 							<td style="text-align:left; padding-left:${20*vo.dept}px">
 							<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
-							<a href="">${vo.title }</a></td>
+							<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							<td><a href="" class="del">삭제</a></td>	
-						</tr>
 
-						<c:if test = '${status.index == 1 }'>
-							<c:set var='groupNo' value='${vo.groupNo}' />
-						</c:if>	
+							<c:if test = '${userNo != null }'>
+								<c:if test = '${uservo.userNo == userNo}'>
+									zzz
+									<td><a href="" class="del">삭제</a></td>						
+								</c:if>
+							</c:if>
+								
+						</tr>
 					</c:forEach>
 				</table>
 				
@@ -63,7 +68,7 @@
 				<!-- pager 추가 -->
 				
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?a=writeform&groupNo=${groupNo }" id="new-book">글쓰기</a>
+					<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
 				</div>				
 			</div>
 		</div>

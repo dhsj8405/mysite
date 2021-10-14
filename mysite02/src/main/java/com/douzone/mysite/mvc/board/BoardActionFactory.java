@@ -11,6 +11,12 @@ public class BoardActionFactory extends ActionFactory{
 			action = new WirteformAction();
 		}else if("write".equals(actionName)) {
 			action = new WirteAction();
+		}else if("view".equals(actionName)) {
+			action = new viewAction();
+		}else if("modifyform".equals(actionName)) {
+			action = new modifyformAction();
+		}else if("modify".equals(actionName)) {
+			action = new modifyAction();
 		}else {
 			action = new ListAction();
 		}
