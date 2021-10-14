@@ -26,7 +26,8 @@ update user
  
  -- board list
  select * from board;
- 
+ -- user list
+ select * from user;
  -- insert
  insert into board values(null, 'test02댓글','test02댓글내용','1',now(),'2','1','1','1');
  
@@ -57,7 +58,7 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
  
  -- board update
  update board set title = '수정1', contents ='수정1'
- where user_no = '1'
+ where user_no = '2'
  and no = '3';
  select *
  from board;
@@ -65,11 +66,22 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
  
  
  -- board view
- select b.title,b.contents, u.no
+ select b.title,b.contents, u.no, b.group_no, b.order_no, b.dept
  from board b,user u
  where b.no = '2'
    and b.user_no = u.no;
  
  select * from board b, user u
-   where b.user_no = u.no
- 
+   where b.user_no = u.no;
+   
+   -- comment insert
+-- board insert group no 
+ insert into board 
+ select null, 'test댓글','test댓글','3',now(), '2', '1','1','1';
+
+-- delete 
+delete from board  
+where no ='14';
+
+-- inform insert
+insert into board select '1', '삭제된 글','삭제된 글','','',now(), '' , '','','null'";

@@ -7,16 +7,20 @@ public class BoardActionFactory extends ActionFactory{
 	@Override
 	public Action getAction(String actionName) {
 		Action action = null;
-		 if("writeform".equals(actionName)) {
-			action = new WirteformAction();
+		 if("writeform".equals(actionName))
+		 {		
+			action = new WirteFormAction();
 		}else if("write".equals(actionName)) {
 			action = new WirteAction();
 		}else if("view".equals(actionName)) {
-			action = new viewAction();
+			action = new ViewAction();
 		}else if("modifyform".equals(actionName)) {
-			action = new modifyformAction();
+			
+			action = new ModifyFormAction();
 		}else if("modify".equals(actionName)) {
-			action = new modifyAction();
+			action = new ModifyAction();
+		}else if("delete".equals(actionName)) {
+			action = new DeleteAction();
 		}else {
 			action = new ListAction();
 		}

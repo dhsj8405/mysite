@@ -36,17 +36,16 @@
 						
 							<td>${vo.no }</td>
 							<td style="text-align:left; padding-left:${20*vo.dept}px">
-							<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
+							<c:if test = '${vo.dept > 0 }'>
+								<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
+							</c:if>
 							<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-
-							<c:if test = '${userNo != null }'>
-								<c:if test = '${uservo.userNo == userNo}'>
-									zzz
-									<td><a href="" class="del">삭제</a></td>						
-								</c:if>
+							
+							<c:if test = '${vo.userNo == userNo}'>
+								<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a></td>						
 							</c:if>
 								
 						</tr>
@@ -68,7 +67,7 @@
 				<!-- pager 추가 -->
 				
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+					<a href="${pageContext.request.contextPath }/board?a=writeform&type=write" id="new-book">글쓰기</a>
 				</div>				
 			</div>
 		</div>

@@ -36,9 +36,9 @@
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 				
-					<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${boardvo.no }">글수정</a>
+					<a href="${pageContext.request.contextPath }/board?a=modifyform&type=modify&no=${boardvo.no }">글수정</a>
 					
-					<a href="">댓글</a>
+					<a href="${pageContext.request.contextPath }/board?a=writeform&type=comment&no=${boardvo.no }">댓글</a>
 				</div>
 			</div>
 		</div>

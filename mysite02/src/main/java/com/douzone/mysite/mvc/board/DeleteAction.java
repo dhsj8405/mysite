@@ -11,18 +11,23 @@ import com.douzone.mysite.vo.BoardVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class viewAction implements Action {
+public class DeleteAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-request.setCharacterEncoding("utf-8");		
-		Long no = Long.parseLong(request.getParameter("no"));
-//BoardDao dao = new BoardDao();
-		BoardVo boardvo = new BoardDao().findByNo(no);
-		
 
-		request.setAttribute("boardvo", boardvo);		
-		MvcUtil.forward("board/view", request, response);
+		Long no = Long.parseLong(request.getParameter("no"));
+//		BoardVo tmpvo = new BoardDao().findByNo(no);
+		BoardVo vo = new BoardVo();
+//		tmpvo.setNo(vo.getNo());
+//		tmpvo.setGroupNo(vo.getGroupNo());
+//		tmpvo.setOrderNo(vo.getOrderNo());
+//		tmpvo.setDept(vo.getDept());
+		
+		new BoardDao().delete(no);
+//		new BoardDao().informInsert(tmpvo);
+		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
+	
 	}
 
 }

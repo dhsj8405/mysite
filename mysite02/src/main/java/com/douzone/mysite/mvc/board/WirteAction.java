@@ -21,17 +21,47 @@ public class WirteAction implements Action {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		BoardVo vo = new BoardVo();
-		
-		vo.setTitle(title);
-		vo.setContent(content);
-		vo.setUserNo(authUser.getNo());
-		vo.setOrderNo(0);
-		vo.setDept(0);
+		String type = request.getParameter("type");
+		System.out.println(type);
+		if("comment".equals(type)) {
+			Long no = Long.parseLong(request.getParameter("no"));
+			System.out.println(no);
 
-		new BoardDao().insert(vo);
-		MvcUtil.redirect("/mysite02/board?a=list", request, response);	}
+			BoardVo parentvo = new BoardDao().findByNo(no);
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			BoardVo vo = new BoardVo();
+			
+			System.out.println(parentvo.getGroupNo());
+
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setUserNo(authUser.getNo());
+			vo.setOrderNo(parentvo.getOrderNo()+1);
+			vo.setDept(parentvo.getDept()+1);
+			vo.setGroupNo(parentvo.getGroupNo());
+						
+			new BoardDao().commentInsert(vo);
+			
+			new BoardDao().updateOrderNo(vo);
+			
+		}else if("modify".equals(type)) {
+			Long no = Long.parseLong(request.getParameter("no"));
+		}else if("write".equals(type)){
+
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			BoardVo vo = new BoardVo();	
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setUserNo(authUser.getNo());
+			vo.setOrderNo(0);
+			vo.setDept(0);
+	
+			new BoardDao().insert(vo);			
+		}
+
+		MvcUtil.redirect("/mysite02/board?a=list", request, response);	
+	}
 
 }
