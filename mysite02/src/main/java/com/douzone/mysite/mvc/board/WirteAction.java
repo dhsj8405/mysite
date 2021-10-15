@@ -40,15 +40,15 @@ public class WirteAction implements Action {
 			vo.setOrderNo(parentvo.getOrderNo()+1);
 			vo.setDept(parentvo.getDept()+1);
 			vo.setGroupNo(parentvo.getGroupNo());
-						
+			new BoardDao().updateOrderNo(vo);
+
 			new BoardDao().commentInsert(vo);
 			
-			new BoardDao().updateOrderNo(vo);
-			
+
 		}else if("modify".equals(type)) {
 			Long no = Long.parseLong(request.getParameter("no"));
 		}else if("write".equals(type)){
-
+			
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			BoardVo vo = new BoardVo();	

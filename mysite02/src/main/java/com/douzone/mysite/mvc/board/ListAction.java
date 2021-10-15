@@ -30,6 +30,19 @@ public class ListAction implements Action {
 		BoardDao dao = new BoardDao();
 		List<BoardVo> list = dao.findAll();
 		request.setAttribute("list", list);
+		
+		int pageno = 1;
+		String pageindex = request.getParameter("pageindex");
+		if(pageindex.equals("prev")) {
+			pageno = pageno-1;
+		}else if(pageindex.equals("next")) {
+			pageno = pageno+1;
+		}else {
+			pageno = Integer.parseInt(pageindex);
+		}
+		
+		request.setAttribute("pageno", pageno);
+
 		MvcUtil.forward("board/list", request, response);
 	}
 

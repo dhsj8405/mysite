@@ -261,8 +261,8 @@ public class BoardDao {
 			//3. SQL 준비
 			String sql = 
 					  " update board set order_no = order_no+1"
-					+ " where ? = 2"
-					+ " and ? >= 2";
+					+ " where group_no = ?"
+					+ " and order_no >= ?";
 					
 					
 			pstmt = conn.prepareStatement(sql);

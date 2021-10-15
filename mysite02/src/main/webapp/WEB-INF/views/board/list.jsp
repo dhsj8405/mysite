@@ -32,7 +32,7 @@
 					<c:forEach items='${list }' var='vo' varStatus='status'>
 
 						<tr>
-							<td>${vo.no }</td>
+							<td>${count- status.index }</td>
 							<td style="text-align:left; padding-left:${20*vo.dept}px">
 							<c:if test = '${vo.dept > 0 }'>
 								<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
@@ -51,13 +51,13 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+					${pageno }
+						<li><a href="${pageContext.request.contextPath }/board?a=view&pageindex=prev">◀</a></li>
+							<c:set var ='row' value='${param.r }' />
+							<c:forEach begin='1' end='5' var='i'>
+						<li class = "selected"><a href="">${i }</a></li>
+						</c:forEach>  
+						<li><a href="${pageContext.request.contextPath }/board?a=view&pageindex=next">▶</a></li>
 					</ul>
 				</div>					
 				<!-- pager 추가 -->

@@ -17,11 +17,11 @@ public class ViewAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");		
 		Long no = Long.parseLong(request.getParameter("no"));
-
+//		String action = request.getParameter("prevpage") 
 		//	BoardDao dao = new BoardDao();
 		BoardVo boardvo = new BoardDao().findByNo(no);
 		new BoardDao().updateHit(no);
-		request.setAttribute("boardvo", boardvo);		
+		request.setAttribute("boardvo", boardvo);
 		MvcUtil.forward("board/view", request, response);
 	}
 

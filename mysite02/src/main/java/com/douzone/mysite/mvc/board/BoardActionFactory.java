@@ -21,6 +21,8 @@ public class BoardActionFactory extends ActionFactory{
 			action = new ModifyAction();
 		}else if("delete".equals(actionName)) {
 			action = new DeleteAction();
+		}else if("pager".equals(actionName)) {
+			action = new DeleteAction();
 		}else {
 			action = new ListAction();
 		}
