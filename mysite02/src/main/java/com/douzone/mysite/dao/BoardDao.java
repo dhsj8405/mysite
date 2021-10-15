@@ -298,6 +298,54 @@ public class BoardDao {
 		
 		return result;
 	}
+	public boolean updateHit(Long no) {
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			//3. SQL 준비
+			String sql = 
+					     "update board set hit = hit + 1"
+					   +" where no = ?";
+					
+					
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩(binding)
+			pstmt.setLong(1, no);
+			
+			
+				
+			//5. SQL 실행
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			// clean up
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
 //	public boolean delete(GuestbookVo vo) {
 //		boolean result = false;
 //

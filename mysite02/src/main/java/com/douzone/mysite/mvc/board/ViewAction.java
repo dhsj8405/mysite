@@ -20,7 +20,7 @@ public class ViewAction implements Action {
 
 		//	BoardDao dao = new BoardDao();
 		BoardVo boardvo = new BoardDao().findByNo(no);
-
+		new BoardDao().updateHit(no);
 		request.setAttribute("boardvo", boardvo);		
 		MvcUtil.forward("board/view", request, response);
 	}

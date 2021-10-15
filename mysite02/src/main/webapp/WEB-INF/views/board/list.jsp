@@ -26,14 +26,12 @@
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-						
 					</tr>	
 					<c:set var='count' value='${fn:length(list) }' />
 					
 					<c:forEach items='${list }' var='vo' varStatus='status'>
 
 						<tr>
-						
 							<td>${vo.no }</td>
 							<td style="text-align:left; padding-left:${20*vo.dept}px">
 							<c:if test = '${vo.dept > 0 }'>
@@ -43,11 +41,9 @@
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							
 							<c:if test = '${vo.userNo == userNo}'>
 								<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a></td>						
 							</c:if>
-								
 						</tr>
 					</c:forEach>
 				</table>
