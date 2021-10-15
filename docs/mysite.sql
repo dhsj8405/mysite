@@ -81,7 +81,11 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
 
 -- delete 
 delete from board  
-where no ='14';
+where no ='16';
 
+select * from board;
 -- inform insert
-insert into board select '1', '삭제된 글','삭제된 글','','',now(), '' , '','','null'";
+insert into board select null, '삭제된 글','삭제된 글','10','7',now(), '2','2';
+
+-- update hit
+update board set hit = hit + 1
