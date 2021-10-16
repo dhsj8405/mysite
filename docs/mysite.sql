@@ -2,7 +2,7 @@
 desc user;
 
 -- insert
-insert into user values(null, '둘리','dooly@gmail.com','1234','male',now());
+-- insert into user values(null, '둘리','dooly@gmail.com','1234','male',now());
 
 -- select01
 select no, name from user where email= 'dhsj8405@naver.com' and password= '1234';
@@ -16,11 +16,11 @@ select * from user;
 select * from guestbook;
 
 -- update 
-update user
-   set name = "둘리",
-	   password = "1234",
-       gender = "female"
- where user.no = 1;
+-- update user
+--    set name = "둘리",
+-- 	   password = "1234",
+--        gender = "female"
+--  where user.no = 1;
  
  select user.no from user;
  

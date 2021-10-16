@@ -59,18 +59,18 @@
 							<c:otherwise>
 								<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${curPageNo-1 }">◀</a></li>
 							</c:otherwise>
-						</c:choose>
+						</c:choose>	
 						
-						<c:forEach begin='1' end='5' var='i'>
+						<c:forEach begin='${leftEdgeNo }' end='${leftEdgeNo+4 }' var='pageno'>
 							<c:choose>
-								<c:when test= '${i == curPageNo }'>
-										<li class = "selected"><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${i}">${i }</a></li>
+								<c:when test= '${pageno == curPageNo }'>
+										<li class = "selected"><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${pageno }">${pageno }</a></li>
 								</c:when> 
-								<c:when test = '${i <= totalPageNo }'>
-										<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${i}">${i }</a></li>
+								<c:when test = '${pageno <= totalPageNo }'>
+										<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${pageno }">${pageno }</a></li>
 								</c:when>
 								<c:otherwise>
-									<li>${i }</li>
+									<li>${pageno }</li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>  
