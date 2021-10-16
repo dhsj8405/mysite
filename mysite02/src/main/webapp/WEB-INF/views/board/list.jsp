@@ -32,7 +32,7 @@
 					<c:forEach items='${list }' var='vo' varStatus='status'>
 
 						<tr>
-							<td>${count- status.index }</td>
+							<td>${vo.no}</td>
 							<td style="text-align:left; padding-left:${20*vo.dept}px">
 							<c:if test = '${vo.dept > 0 }'>
 								<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
@@ -51,13 +51,39 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-					${pageno }
-						<li><a href="${pageContext.request.contextPath }/board?a=view&pageindex=prev">◀</a></li>
-							<c:set var ='row' value='${param.r }' />
-							<c:forEach begin='1' end='5' var='i'>
-						<li class = "selected"><a href="">${i }</a></li>
+						<c:set var='count' value='${fn:length(list) }' />
+						<c:choose>				
+							<c:when test='${curPageNo == 1}'>
+								<li>◀</li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${curPageNo-1 }">◀</a></li>
+							</c:otherwise>
+						</c:choose>
+						
+						<c:forEach begin='1' end='5' var='i'>
+							<c:choose>
+								<c:when test= '${i == curPageNo }'>
+										<li class = "selected"><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${i}">${i }</a></li>
+								</c:when> 
+								<c:when test = '${i <= totalPageNo }'>
+										<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${i}">${i }</a></li>
+								</c:when>
+								<c:otherwise>
+									<li>${i }</li>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>  
-						<li><a href="${pageContext.request.contextPath }/board?a=view&pageindex=next">▶</a></li>
+						
+						<c:choose>				
+							<c:when test='${totalPageNo == curPageNo}'>
+								<li>▶</li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${curPageNo+1 }">▶</a></li>		
+							</c:otherwise>
+						</c:choose>
+						
 					</ul>
 				</div>					
 				<!-- pager 추가 -->

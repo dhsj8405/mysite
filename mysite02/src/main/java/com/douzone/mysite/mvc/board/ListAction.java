@@ -27,21 +27,35 @@ public class ListAction implements Action {
 		request.setAttribute("userNo", no);
 		}
 		
-		BoardDao dao = new BoardDao();
-		List<BoardVo> list = dao.findAll();
-		request.setAttribute("list", list);
-		
 		int pageno = 1;
-		String pageindex = request.getParameter("pageindex");
-		if(pageindex.equals("prev")) {
-			pageno = pageno-1;
-		}else if(pageindex.equals("next")) {
-			pageno = pageno+1;
+	
+		
+		if(request.getParameter("pageindex") == null) {
+			pageno = 1;
+			
 		}else {
+			String pageindex = request.getParameter("pageindex");
 			pageno = Integer.parseInt(pageindex);
 		}
 		
-		request.setAttribute("pageno", pageno);
+		request.setAttribute("curPageNo", pageno);
+		BoardDao dao = new BoardDao();
+		List<BoardVo> list = dao.findAll(pageno);
+		int totalPageNo = dao.findTotalPage();
+		request.setAttribute("totalPageNo", totalPageNo);
+		request.setAttribute("list", list);
+		
+//		String pageindex = request.getParameter("pageindex");
+//		
+//		if(pageindex.equals("prev")) {
+//			pageno = pageno-1;
+//		}else if(pageindex.equals("next")) {
+//			pageno = pageno+1;
+//		}else {
+//			pageno = Long.parseLong(pageindex);
+//		}
+//		
+//		request.setAttribute("pageno", pageno);
 
 		MvcUtil.forward("board/list", request, response);
 	}

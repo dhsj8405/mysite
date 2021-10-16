@@ -12,7 +12,7 @@ import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.GuestbookVo;
 
 public class BoardDao {
-	public List<BoardVo> findAll() {
+	public List<BoardVo> findAll(int pageno) {
 		List<BoardVo> list = new ArrayList<>();
 		
 		Connection conn = null;
@@ -26,8 +26,11 @@ public class BoardDao {
 						"select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,u.no"
 						+ " from board b,user u"
 						+ " where b.user_no = u.no"
-						+ " ORDER BY group_no desc, order_no ASC LIMIT 0,10";
+						+ " ORDER BY group_no desc, order_no ASC LIMIT ?,10";
 			pstmt = conn.prepareStatement(sql);
+			int limitNo = (pageno-1)*10;
+			pstmt.setLong(1, limitNo);
+
 			
 			rs = pstmt.executeQuery();
 			
@@ -75,6 +78,107 @@ public class BoardDao {
 		}
 		
 		return list;
+	}
+	public BoardVo findByNo(Long no) {
+
+		BoardVo vo = null;
+		// jdbc를 이용하기위한 인터페이스
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = " select b.title,b.contents, u.no, b.group_no, b.order_no, b.dept"
+					+ " from board b,user u"
+					+ " where b.no = ?"
+					+ "   and b.user_no = u.no";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩(binding)
+			pstmt.setLong(1,no);
+
+			// 5. SQL 실행
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+
+				String title = rs.getString(1);
+				String content = rs.getString(2);		
+				Long userNo = rs.getLong(3);
+				Long groupNo = rs.getLong(4);
+				int orderNo = rs.getInt(5);
+				int depth = rs.getInt(6);
+				vo = new BoardVo();
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setContent(content);
+				vo.setUserNo(userNo);
+				vo.setGroupNo(groupNo);
+				vo.setOrderNo(orderNo);
+				vo.setDept(depth);
+			}	
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			// clean up
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return vo;
+	}
+	public int findTotalPage() {
+		int result = 1;
+		ResultSet rs = null;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "  select ceil(a.rnum/10) as page"
+						+ "	   from ("
+						+ "			select count(*) as rnum "
+						+ "			from board"
+						+ "		)a";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}finally {
+			try {
+				if(conn != null) {
+					conn.close();	
+				}
+				if(pstmt != null) {
+					pstmt.close();	
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		
+		return result; 
 	}
 	public boolean insert(BoardVo vo) {
 	boolean result = false;
@@ -161,44 +265,44 @@ public class BoardDao {
 	
 	return result;
 }
-	public boolean informInsert(BoardVo vo) {
-		boolean result = false;
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = getConnection();
-			
-			String sql =
-					"  insert into board "
-					+ " select null, '삭제된 글','삭제된 글'?,?,now(),  ?,?,'null'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, vo.getHit());
-			pstmt.setLong(2, vo.getGroupNo());
-			pstmt.setInt(3, vo.getOrderNo());
-			pstmt.setInt(4, vo.getDept());
-			pstmt.setLong(5, vo.getUserNo());
-			
-			int count = pstmt.executeUpdate();
-			result = count == 1;
-			
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}		
-		
-		return result;
-	}	
+//	public boolean informInsert(BoardVo vo) {
+//		boolean result = false;
+//
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		try {
+//			conn = getConnection();
+//			
+//			String sql =
+//					"  insert into board "
+//					+ " select null, '삭제된 글','삭제된 글'?,?,now(),  ?,?,'null'";
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, vo.getHit());
+//			pstmt.setLong(2, vo.getGroupNo());
+//			pstmt.setInt(3, vo.getOrderNo());
+//			pstmt.setInt(4, vo.getDept());
+//			pstmt.setLong(5, vo.getUserNo());
+//			
+//			int count = pstmt.executeUpdate();
+//			result = count == 1;
+//			
+//		} catch (SQLException e) {
+//			System.out.println("error:" + e);
+//		} finally {
+//			try {
+//				if(pstmt != null) {
+//					pstmt.close();
+//				}
+//				if(conn != null) {
+//					conn.close();
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}		
+//		
+//		return result;
+//	}	
 	public boolean update(BoardVo vo) {
 		boolean result = false;
 
@@ -386,68 +490,7 @@ public class BoardDao {
 //	}
 //	
 
-	public BoardVo findByNo(Long no) {
 
-		BoardVo vo = null;
-		// jdbc를 이용하기위한 인터페이스
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			// 3. SQL 준비
-			String sql = " select b.title,b.contents, u.no, b.group_no, b.order_no, b.dept"
-					+ " from board b,user u"
-					+ " where b.no = ?"
-					+ "   and b.user_no = u.no";
-			pstmt = conn.prepareStatement(sql);
-
-			// 4. 바인딩(binding)
-			pstmt.setLong(1,no);
-
-			// 5. SQL 실행
-			rs = pstmt.executeQuery();
-
-			while(rs.next()) {
-
-				String title = rs.getString(1);
-				String content = rs.getString(2);		
-				Long userNo = rs.getLong(3);
-				Long groupNo = rs.getLong(4);
-				int orderNo = rs.getInt(5);
-				int depth = rs.getInt(6);
-				vo = new BoardVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setContent(content);
-				vo.setUserNo(userNo);
-				vo.setGroupNo(groupNo);
-				vo.setOrderNo(orderNo);
-				vo.setDept(depth);
-			}	
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// clean up
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
-	}
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 		try {
