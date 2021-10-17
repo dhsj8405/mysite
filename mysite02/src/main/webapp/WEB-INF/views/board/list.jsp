@@ -35,7 +35,7 @@
 							<td>${vo.no}</td>
 							<td style="text-align:left; padding-left:${20*vo.dept}px">
 							<c:if test = '${vo.dept > 0 }'>
-								<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
+								<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' height="10" width="10"/>
 							</c:if>
 							<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
 							<td>${vo.name }</td>

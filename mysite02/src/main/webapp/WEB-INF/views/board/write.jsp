@@ -26,13 +26,27 @@
 						</tr>
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value=""></td>
+							<c:choose>
+								<c:when test = '${boardvo.title == null }'>
+									<td><input type="text" name="title" value=""></td>
+								</c:when>
+								<c:otherwise>
+									<td><input type="text" name="title" value="${boardvo.title }"></td>
+								</c:otherwise>
+							</c:choose>
+							
 						</tr>
 						<tr>
 							<td class="label">내용</td>
-							<td>
-								<textarea id="content" name="content"></textarea>
-							</td>
+						
+							<c:choose>
+								<c:when test = '${boardvo.content == null }'>
+									<td><textarea id="content" name="content"></textarea></td>
+								</c:when>
+								<c:otherwise>
+									<td><textarea id="content" name="content">${boardvo.content }</textarea></td>								
+								</c:otherwise>
+							</c:choose>				
 						</tr>
 					</table>
 					<div class="bottom">

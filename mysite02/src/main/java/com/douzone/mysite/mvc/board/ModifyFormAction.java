@@ -31,7 +31,7 @@ public class ModifyFormAction implements Action {
 		}
 		
 		request.setAttribute("boardvo", boardvo);		
-		MvcUtil.forward("board/modify", request, response);
+		MvcUtil.forward("board/write", request, response);
 	}
 
 }

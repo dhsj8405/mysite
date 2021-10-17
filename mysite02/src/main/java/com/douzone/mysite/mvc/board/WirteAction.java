@@ -22,39 +22,33 @@ public class WirteAction implements Action {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
 		String type = request.getParameter("type");
-		System.out.println(type);
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		Long no = null;
+		BoardVo vo = new BoardVo();
+		vo.setTitle(title);
+		vo.setContent(content);
+		vo.setUserNo(authUser.getNo());
+
 		if("comment".equals(type)) {
-			Long no = Long.parseLong(request.getParameter("no"));
-			System.out.println(no);
+			no = Long.parseLong(request.getParameter("no"));
 
 			BoardVo parentvo = new BoardDao().findByNo(no);
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			BoardVo vo = new BoardVo();
-			
-			System.out.println(parentvo.getGroupNo());
 
-			vo.setTitle(title);
-			vo.setContent(content);
-			vo.setUserNo(authUser.getNo());
 			vo.setOrderNo(parentvo.getOrderNo()+1);
 			vo.setDept(parentvo.getDept()+1);
 			vo.setGroupNo(parentvo.getGroupNo());
-			new BoardDao().updateOrderNo(vo);
-
-			new BoardDao().commentInsert(vo);
 			
+			new BoardDao().updateOrderNo(vo);
+			new BoardDao().commentInsert(vo);
 
 		}else if("modify".equals(type)) {
-			Long no = Long.parseLong(request.getParameter("no"));
+			no = Long.parseLong(request.getParameter("no"));
+			vo.setNo(no);
+
+			new BoardDao().update(vo);
 		}else if("write".equals(type)){
-			
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			BoardVo vo = new BoardVo();	
-			vo.setTitle(title);
-			vo.setContent(content);
-			vo.setUserNo(authUser.getNo());
+				
 			vo.setOrderNo(0);
 			vo.setDept(0);
 	

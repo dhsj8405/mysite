@@ -26,14 +26,9 @@ public class ListAction implements Action {
 			Long no = authUser.getNo();
 			request.setAttribute("userNo", no);
 		}
-		
 		int pageno = 1;
 	
-		
-		if(request.getParameter("pageindex") == null) {
-			pageno = 1;
-			
-		}else {
+		if(request.getParameter("pageindex") != null) {
 			String pageindex = request.getParameter("pageindex");
 			pageno = Integer.parseInt(pageindex);
 		}
@@ -48,18 +43,6 @@ public class ListAction implements Action {
 		request.setAttribute("leftEdgeNo", leftEdgeNo);
 		request.setAttribute("totalPageNo", totalPageNo);
 		request.setAttribute("list", list);
-		
-//		String pageindex = request.getParameter("pageindex");
-//		
-//		if(pageindex.equals("prev")) {
-//			pageno = pageno-1;
-//		}else if(pageindex.equals("next")) {
-//			pageno = pageno+1;
-//		}else {
-//			pageno = Long.parseLong(pageindex);
-//		}
-//		
-//		request.setAttribute("pageno", pageno);
 
 		MvcUtil.forward("board/list", request, response);
 	}
