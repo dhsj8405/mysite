@@ -17,6 +17,16 @@ public class WirteFormAction implements Action {
 //		String action = request.getParameter("type");
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		//새글		
+		if (authUser == null) {
+			MvcUtil.redirect(request.getContextPath()+"/board", request, response);
+			return;
+			}
+		
+//		new CheckAuth().checkUser(request,response);
+
+		
+		
 		//글 수정
 //		if(action == "no") {		
 //			Long no = Long.parseLong(action);
@@ -42,11 +52,7 @@ public class WirteFormAction implements Action {
 //		}else {
 //			
 //		}
-		//새글		
-		if (authUser == null) {
-			MvcUtil.redirect(request.getContextPath()+"/board", request, response);
-			return;
-		}
+		
 		
 		MvcUtil.forward("board/write", request, response);
 		

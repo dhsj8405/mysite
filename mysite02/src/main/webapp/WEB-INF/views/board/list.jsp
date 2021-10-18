@@ -64,7 +64,7 @@
 						<c:forEach begin='${leftEdgeNo }' end='${leftEdgeNo+4 }' var='pageno'>
 							<c:choose>
 								<c:when test= '${pageno == curPageNo }'>
-										<li class = "selected"><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${pageno }">${pageno }</a></li>
+										<li class = "selected">${pageno }</li>
 								</c:when> 
 								<c:when test = '${pageno <= totalPageNo }'>
 										<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${pageno }">${pageno }</a></li>

@@ -26,6 +26,7 @@ public class ListAction implements Action {
 			Long no = authUser.getNo();
 			request.setAttribute("userNo", no);
 		}
+		
 		int pageno = 1;
 	
 		if(request.getParameter("pageindex") != null) {
