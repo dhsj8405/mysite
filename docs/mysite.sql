@@ -52,7 +52,7 @@ select * from guestbook;
 select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept, u.no
  from board b,user u
  where b.user_no = u.no
- ORDER BY group_no desc, order_no ASC LIMIT 10,10;
+ ORDER BY group_no desc, order_no ASC LIMIT 50,10;
  
  -- board insert
  insert into board values(null, 'test02','test02','1',now(),'2','0','0','1');
@@ -149,4 +149,16 @@ select * from (
 											where b.user_no = u.no
 											ORDER BY group_no desc, order_no ASC LIMIT 0,10
 										)
-				)
+				);
+                
+-- keyword 찾기기능                
+select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept, u.no
+ from board b,user u
+ where b.user_no = u.no
+ ORDER BY group_no desc, order_no ASC LIMIT 10,10;                
+ 
+ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept, u.no
+ from board b,user u
+ where b.user_no = u.no
+   and b.title like '%d%'
+ ORDER BY group_no desc, order_no ASC LIMIT 10,10;                
