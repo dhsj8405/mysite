@@ -23,6 +23,10 @@ public class WirteAction implements Action {
 
 		String type = request.getParameter("type");
 		String title = request.getParameter("title");
+		if(title == "") {
+			MvcUtil.redirect(request.getContextPath()+"/board", request, response);
+			return;
+		}
 		String content = request.getParameter("content");
 		Long no = null;
 		BoardVo vo = new BoardVo();

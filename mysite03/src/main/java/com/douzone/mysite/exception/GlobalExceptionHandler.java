@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
 			//	1. 로깅
 			StringWriter errors = new StringWriter();
 			e.printStackTrace(new PrintWriter(errors));
-//			LOGGER.error(errors.toString());
+			// LOGGER.error(errors.toString());
 			
 			// 2. 요청 구분
 			

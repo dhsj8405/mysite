@@ -13,6 +13,7 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
@@ -76,4 +77,15 @@
 		<servlet-name>BoardController</servlet-name>
 		<url-pattern>/board</url-pattern>
 	</servlet-mapping>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error/404.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/error/500.jsp</location>
+	</error-page>
+	
 </web-app>
