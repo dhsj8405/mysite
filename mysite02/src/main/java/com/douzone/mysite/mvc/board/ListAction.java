@@ -20,6 +20,17 @@ public class ListAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");		
 		
+		if(request.getParameter("kwd") !=null) {
+			String keyword = request.getParameter("kwd");
+			BoardDao dao = new BoardDao();
+			List<BoardVo> list = dao.search(keyword);
+			request.setAttribute("list", list);
+
+			MvcUtil.forward("board/list", request, response);
+			return;
+		}
+		
+		
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		if (authUser != null) {
