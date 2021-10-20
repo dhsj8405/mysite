@@ -157,6 +157,14 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
  where b.user_no = u.no
  ORDER BY group_no desc, order_no ASC LIMIT 10,10;                
  
+ 
+  select ceil(a.rnum/10) as page
+	   from (
+			select count(*) as rnum 
+			from board b,user u
+            where b.user_no = u.no
+			and b.title like '%d%'
+		)a;
  select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept, u.no
  from board b,user u
  where b.user_no = u.no
