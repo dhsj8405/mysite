@@ -14,51 +14,15 @@ public class WirteFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String action = request.getParameter("type");
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		//새글		
 		if (authUser == null) {
 			MvcUtil.redirect(request.getContextPath()+"/board", request, response);
 			return;
 			}
-		
-//		new CheckAuth().checkUser(request,response);
 
-		
-		
-		//글 수정
-//		if(action == "no") {		
-//			Long no = Long.parseLong(action);
-//			BoardVo boardvo = new BoardDao().findByNo(no);
-//			if(authUser == null) {
-//				MvcUtil.redirect(request.getContextPath()+"/board", request, response);
-//				return;
-//			}else if( authUser.getNo() != boardvo.getUserNo()) {
-//				MvcUtil.redirect(request.getContextPath()+"/board", request, response);
-//				return;
-//			}
-//			request.setAttribute("boardvo", boardvo);		
-//			MvcUtil.forward("board/write", request, response);	
-//			return;
-//		}
-//		if(action =="write") {
-//		
-//		}else if(action =="update") {
-//			Long no = Long.parseLong(request.getParameter("no"));
-//		
-//		}else if(action =="comment") {
-//			
-//		}else {
-//			
-//		}
-		
-		
 		MvcUtil.forward("board/write", request, response);
-		
-		//댓글
-		
-		
+
 	}
 
 }

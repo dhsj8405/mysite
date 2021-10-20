@@ -30,7 +30,6 @@ public class BoardDao {
 			int limitNo = (pageno-1)*10;
 			pstmt.setLong(1, limitNo);
 
-			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -182,7 +181,6 @@ public class BoardDao {
 				vo.setGroupNo(groupNo);
 				vo.setOrderNo(orderNo);
 				vo.setDept(depth);
-				System.out.println(title);
 			}	
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -388,7 +386,6 @@ public class BoardDao {
 					+" and no = ?";
 					
 			pstmt = conn.prepareStatement(sql);
-			
 
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
@@ -517,8 +514,7 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, no);
-			
-			
+
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 			
@@ -536,7 +532,6 @@ public class BoardDao {
 				e.printStackTrace();
 			}
 		}		
-		
 		return result;		
 	}
 	private Connection getConnection() throws SQLException {

@@ -26,7 +26,6 @@ public class WirteAction implements Action {
 		String titleTrim = title.trim();
 		if("".equals(titleTrim) ) {
 			MvcUtil.redirect(request.getContextPath()+"/board", request, response);
-			System.out.println(" fdsfadfdsafd");
 			return;
 		}
 		String content = request.getParameter("content");

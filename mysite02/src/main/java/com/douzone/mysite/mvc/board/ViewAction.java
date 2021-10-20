@@ -17,8 +17,6 @@ public class ViewAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");		
 		Long no = Long.parseLong(request.getParameter("no"));
-//		String action = request.getParameter("prevpage") 
-		//	BoardDao dao = new BoardDao();
 		new BoardDao().updateHit(no);
 		BoardVo boardvo = new BoardDao().findByNo(no);
 		request.setAttribute("boardvo", boardvo);

@@ -17,8 +17,6 @@ public class ModifyFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		new CheckAuth().checkUser(request,response);
-//		new CheckAuth().checkBoardOwnership(request,response);
 		
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
@@ -32,9 +30,7 @@ public class ModifyFormAction implements Action {
 			MvcUtil.redirect(request.getContextPath()+"/board", request, response);
 			return;
 		}
-//		new CheckAuth().checkBoardOwnership(request,response,boardvo);
 		
-		System.out.println("1");
 		request.setAttribute("boardvo", boardvo);		
 		MvcUtil.forward("board/write", request, response);
 	}

@@ -191,18 +191,6 @@ public class UserDao {
 			//5. SQL 실행
 			int count = pstmt.executeUpdate();
 			result = count == 1;
-						
-			//0개 or 1개 밖에 없기 때문에 if문 
-//			if(rs.next()) {
-//				Long no = rs.getLong(1);
-//				String name = rs.getString(2);
-//								
-//				
-//				vo = new UserVo();
-//				vo.setNo(no);
-//				vo.setName(name);
-//				
-//			}
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
