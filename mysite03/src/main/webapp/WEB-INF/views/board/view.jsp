@@ -21,14 +21,14 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>${boardvo.title }</td>
+						<td>${boardVo.title }</td>
 						
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${boardvo.content }
+								${boardVo.content }
 							</div>
 						</td>
 					</tr>
@@ -36,9 +36,9 @@
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 				
-					<a href="${pageContext.request.contextPath }/board?a=modifyform&type=modify&no=${boardvo.no }">글수정</a>
+					<a href="${pageContext.request.contextPath }/board?a=modifyform&type=modify&no=${boardVo.no }">글수정</a>
 					
-					<a href="${pageContext.request.contextPath }/board?a=writeform&type=comment&no=${boardvo.no }">댓글</a>
+					<a href="${pageContext.request.contextPath }/board?a=writeform&type=comment&no=${boardVo.no }">댓글</a>
 				</div>
 			</div>
 		</div>

@@ -19,8 +19,8 @@ public class ViewAction implements Action {
 		Long no = Long.parseLong(request.getParameter("no"));
 //		String action = request.getParameter("prevpage") 
 		//	BoardDao dao = new BoardDao();
-		BoardVo boardvo = new BoardDao().findByNo(no);
 		new BoardDao().updateHit(no);
+		BoardVo boardvo = new BoardDao().findByNo(no);
 		request.setAttribute("boardvo", boardvo);
 		MvcUtil.forward("board/view", request, response);
 	}

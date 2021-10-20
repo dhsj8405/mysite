@@ -1,4 +1,4 @@
-package com.douzone.mysite.dao;
+package com.douzone.mysite.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,12 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.douzone.mysite.vo.BoardVo;
 
-public class BoardDao {
-	public List<BoardVo> findAll(int pageno) {
+@Repository
+public class BoardRepository {
+	public List<BoardVo> findAll(int pageIndex) {
 		List<BoardVo> list = new ArrayList<>();
-		
+		System.out.println(pageIndex);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -27,7 +30,7 @@ public class BoardDao {
 						+ " where b.user_no = u.no"
 						+ " ORDER BY group_no desc, order_no ASC LIMIT ?,10";
 			pstmt = conn.prepareStatement(sql);
-			int limitNo = (pageno-1)*10;
+			int limitNo = (pageIndex-1)*10;
 			pstmt.setLong(1, limitNo);
 
 			
@@ -99,7 +102,7 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 
 			while(rs.next()) {
-				
+
 				String title = rs.getString(1);
 				String content = rs.getString(2);		
 				Long userNo = rs.getLong(3);
@@ -114,7 +117,6 @@ public class BoardDao {
 				vo.setGroupNo(groupNo);
 				vo.setOrderNo(orderNo);
 				vo.setDept(depth);
-				System.out.println(title);
 			}	
 		} catch (SQLException e) {
 			System.out.println("error:" + e);

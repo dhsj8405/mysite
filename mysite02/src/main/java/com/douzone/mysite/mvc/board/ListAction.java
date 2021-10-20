@@ -31,28 +31,18 @@ public class ListAction implements Action {
 		}
 		
 		
-		HttpSession session = request.getSession();
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser != null) {
-			Long no = authUser.getNo();
-			request.setAttribute("userNo", no);
-		}
-		
 		int pageno = 1;
 	
 		if(request.getParameter("pageindex") != null) {
 			String pageindex = request.getParameter("pageindex");
 			pageno = Integer.parseInt(pageindex);
 		}
-		
-//		int leftEdgeNo = (pageno-1)/5 *5 +1;
-		
+
 		BoardDao dao = new BoardDao();
 		List<BoardVo> list = dao.findAll(pageno);
 		int totalPageNo = dao.findTotalPage();
 		
 		request.setAttribute("curPageNo", pageno);
-//		request.setAttribute("leftEdgeNo", leftEdgeNo);
 		request.setAttribute("totalPageNo", totalPageNo);
 		request.setAttribute("list", list);
 

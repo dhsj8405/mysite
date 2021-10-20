@@ -16,6 +16,7 @@ public class WirteFormAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		String action = request.getParameter("type");
 		HttpSession session = request.getSession();
+		System.out.println(session);
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		//새글		
 		if (authUser == null) {

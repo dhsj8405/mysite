@@ -14,7 +14,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
+				<form id="search_form" action="${pageContext.request.contextPath }/board/list" method="post">
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 				</form>
@@ -37,7 +37,7 @@
 							<c:if test = '${vo.dept > 0 }'>
 								<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' height="10" width="10"/>
 							</c:if>
-							<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+							<a href="${pageContext.request.contextPath }/board/view/${vo.no }">${vo.title }</a></td>
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
@@ -47,8 +47,8 @@
 						</tr>
 					</c:forEach>
 				</table>
-				
 				<!-- pager 추가 -->
+				<c:set var = 'leftEdgeNo' value ='${(((curPageNo-1)/5)-(((curPageNo-1)/5)%1) )*5 +1 }'/>
 				<div class="pager">
 					<ul>
 						<c:set var='count' value='${fn:length(list) }' />
@@ -57,17 +57,16 @@
 								<li>◀</li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${curPageNo-1 }">◀</a></li>
+								<li><a href="${pageContext.request.contextPath }/board/list/${curPageNo-1 }">◀</a></li>
 							</c:otherwise>
 						</c:choose>	
-						
-						<c:forEach begin='${leftEdgeNo }' end='${leftEdgeNo+4 }' var='pageno'>
+						<c:forEach begin='${leftEdgeNo}' end='${leftEdgeNo+4 }' var='pageno'>
 							<c:choose>
 								<c:when test= '${pageno == curPageNo }'>
 										<li class = "selected">${pageno }</li>
 								</c:when> 
 								<c:when test = '${pageno <= totalPageNo }'>
-										<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${pageno }">${pageno }</a></li>
+										<li><a href="${pageContext.request.contextPath }/board/list/${pageno }">${pageno }</a></li>
 								</c:when>
 								<c:otherwise>
 									<li>${pageno }</li>
@@ -80,7 +79,7 @@
 								<li>▶</li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${curPageNo+1 }">▶</a></li>		
+								<li><a href="${pageContext.request.contextPath }/board/list/${curPageNo+1 }">▶</a></li>		
 							</c:otherwise>
 						</c:choose>
 						
@@ -89,7 +88,7 @@
 				<!-- pager 추가 -->
 				
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?a=writeform&type=write" id="new-book">글쓰기</a>
+					<a href="${pageContext.request.contextPath }/board/write" id="new-book">글쓰기</a>
 				</div>				
 			</div>
 		</div>
