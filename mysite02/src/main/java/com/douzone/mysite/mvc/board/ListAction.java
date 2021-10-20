@@ -45,14 +45,14 @@ public class ListAction implements Action {
 			pageno = Integer.parseInt(pageindex);
 		}
 		
-		int leftEdgeNo = (pageno-1)/5 *5 +1;
+//		int leftEdgeNo = (pageno-1)/5 *5 +1;
 		
 		BoardDao dao = new BoardDao();
 		List<BoardVo> list = dao.findAll(pageno);
 		int totalPageNo = dao.findTotalPage();
 		
 		request.setAttribute("curPageNo", pageno);
-		request.setAttribute("leftEdgeNo", leftEdgeNo);
+//		request.setAttribute("leftEdgeNo", leftEdgeNo);
 		request.setAttribute("totalPageNo", totalPageNo);
 		request.setAttribute("list", list);
 

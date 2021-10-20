@@ -47,8 +47,8 @@
 						</tr>
 					</c:forEach>
 				</table>
-				
 				<!-- pager 추가 -->
+				<c:set var = 'leftEdgeNo' value ='${(((curPageNo-1)/5)-(((curPageNo-1)/5)%1) )*5 +1 }'/>
 				<div class="pager">
 					<ul>
 						<c:set var='count' value='${fn:length(list) }' />
@@ -60,8 +60,7 @@
 								<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${curPageNo-1 }">◀</a></li>
 							</c:otherwise>
 						</c:choose>	
-						
-						<c:forEach begin='${leftEdgeNo }' end='${leftEdgeNo+4 }' var='pageno'>
+						<c:forEach begin='${leftEdgeNo}' end='${leftEdgeNo+4 }' var='pageno'>
 							<c:choose>
 								<c:when test= '${pageno == curPageNo }'>
 										<li class = "selected">${pageno }</li>

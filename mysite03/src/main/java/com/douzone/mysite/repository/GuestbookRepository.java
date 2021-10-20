@@ -9,13 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StopWatch;
 
+import com.douzone.mysite.exception.GuestbookRepositoryException;
 import com.douzone.mysite.vo.GuestbookVo;
 
 @Repository
 public class GuestbookRepository {
 	
-	public List<GuestbookVo> findAll() {
+	public List<GuestbookVo> findAll() throws GuestbookRepositoryException {
+		
+		StopWatch sw = new StopWatch();
+		sw.start();
+		
 		List<GuestbookVo> result = new ArrayList<>();
 		//jdbc를 이용하기위한 인터페이스
 		Connection conn = null;
@@ -52,7 +58,8 @@ public class GuestbookRepository {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			throw new GuestbookRepositoryException(e.toString());
+				
 		} finally {
 			// clean up
 			try {
@@ -70,6 +77,9 @@ public class GuestbookRepository {
 			}
 		}
 		
+		sw.stop();
+		Long totalTime = sw.getTotalTimeMillis();
+		System.out.println("[Execution Time][GuestbookRepository.findAll]" + totalTime + "millis");
 		return result;
 	}
 	

@@ -1,25 +1,36 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.douzone</groupId>
-    <artifactId>mysite</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>mysite03</artifactId>
-  <packaging>war</packaging>
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.douzone</groupId>
+		<artifactId>mysite</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>mysite03</artifactId>
+	<packaging>war</packaging>
+	<properties>
 		<orgspringframework-version>4.3.4.RELEASE</orgspringframework-version>
+		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
+		<logback.version>1.1.1</logback.version>
 	</properties>
-	
+
 	<dependencies>
-		<!--  Spring Context(Container) -->
+		<!-- Spring Context(Container) -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${orgspringframework-version}</version>
+			<!-- JCL 제외 -->
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
-		<!--  Spring MVC -->
+
+		<!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -31,20 +42,38 @@
 			<artifactId>spring-web</artifactId>
 			<version>${orgspringframework-version}</version>
 		</dependency>
-		
-		<!--  jstl -->
+		<!-- Spring Aspect -->
 		<dependency>
-    		<groupId>javax.servlet</groupId>
-	    	<artifactId>jstl</artifactId>
-    		<version>1.2</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${orgspringframework-version}</version>
 		</dependency>
-		<!--  MariaDB JDBC Driver -->
+
+		<!-- jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- MariaDB JDBC Driver -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 			<version>2.7.2</version>
 		</dependency>
-		
+
+		<!-- logback(slf4j) -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${jcloverslf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -57,11 +86,11 @@
 			<artifactId>jsp-api</artifactId>
 			<version>2.0</version>
 			<scope>provided</scope>
-		</dependency>		
+		</dependency>
 	</dependencies>
-	
+
 	<build>
-	<finalName>mysite03</finalName>
+		<finalName>mysite03</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -81,7 +110,7 @@
 					<username>admin</username>
 					<password>manager</password>
 				</configuration>
-			</plugin>		
+			</plugin>
 		</plugins>
 	</build>
 </project>
