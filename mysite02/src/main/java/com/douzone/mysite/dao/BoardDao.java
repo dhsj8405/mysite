@@ -78,6 +78,74 @@ public class BoardDao {
 		
 		return list;
 	}
+	public List<BoardVo> findAll(int pageno,String keyword) {
+		List<BoardVo> list = new ArrayList<>();
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+					
+			try {
+				conn = getConnection();
+				
+				String sql =
+							"select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,u.no"
+							+ " from board b,user u"
+							+ " where b.user_no = u.no "
+							+ " and b.title like ?"
+							+ " ORDER BY group_no desc, order_no ASC LIMIT ?,10";
+				pstmt = conn.prepareStatement(sql);
+		
+				pstmt.setString(1, "%"+keyword+"%");
+				int limitNo = (pageno-1)*10;
+				pstmt.setLong(2, limitNo);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					Long no = rs.getLong(1);
+					String title = rs.getString(2);
+					String name = rs.getString(3);
+					int hit = rs.getInt(4);
+					String regDate = rs.getString(5);
+					Long groupNo= rs.getLong(6);
+					int orderNo = rs.getInt(7);
+					int dept = rs.getInt(8);
+					Long userNo = rs.getLong(9);
+					
+					BoardVo vo = new BoardVo();
+					vo.setNo(no);
+					vo.setTitle(title);
+					vo.setName(name);
+					vo.setHit(hit);
+					vo.setRegDate(regDate);
+					vo.setGroupNo(groupNo);
+					vo.setOrderNo(orderNo);
+					vo.setDept(dept);
+					vo.setUserNo(userNo);
+
+					list.add(vo);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			} finally {
+				try {
+					if(rs != null) {
+						rs.close();
+					}
+					if(pstmt != null) {
+						pstmt.close();
+					}
+					if(conn != null) {
+						conn.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return list;
+		}
 	public BoardVo findByNo(Long no) {
 
 		BoardVo vo = null;
@@ -151,6 +219,50 @@ public class BoardDao {
 						+ "			from board"
 						+ "		)a";
 			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}finally {
+			try {
+				if(conn != null) {
+					conn.close();	
+				}
+				if(pstmt != null) {
+					pstmt.close();	
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		
+		return result; 
+	}
+	public int findTotalPage(String keyword) {
+		int result = 1;
+		ResultSet rs = null;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "  select ceil(a.rnum/10) as page"
+					+ "	   from ("
+					+ "			select count(*) as rnum"
+					+ "			from board b,user u"
+					+ "            where b.user_no = u.no"
+					+ "			and b.title like ?"
+					+ "		)a";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				result = rs.getInt(1);
@@ -439,71 +551,5 @@ public class BoardDao {
 		
 		return conn;
 	}
-	public List<BoardVo> search(String keyword) {
-	List<BoardVo> list = new ArrayList<>();
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-				
-		try {
-			conn = getConnection();
-			
-			String sql =
-						"select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,u.no"
-						+ " from board b,user u"
-						+ " where b.user_no = u.no "
-						+ " and b.title like ?"
-						+ " ORDER BY group_no desc, order_no ASC";
-			pstmt = conn.prepareStatement(sql);
 	
-			pstmt.setString(1, "%"+keyword+"%");
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				Long no = rs.getLong(1);
-				String title = rs.getString(2);
-				String name = rs.getString(3);
-				int hit = rs.getInt(4);
-				String regDate = rs.getString(5);
-				Long groupNo= rs.getLong(6);
-				int orderNo = rs.getInt(7);
-				int dept = rs.getInt(8);
-				Long userNo = rs.getLong(9);
-				
-				BoardVo vo = new BoardVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setName(name);
-				vo.setHit(hit);
-				vo.setRegDate(regDate);
-				vo.setGroupNo(groupNo);
-				vo.setOrderNo(orderNo);
-				vo.setDept(dept);
-				vo.setUserNo(userNo);
-
-				list.add(vo);
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return list;
-	}
 }

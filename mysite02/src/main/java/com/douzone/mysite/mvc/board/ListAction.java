@@ -20,28 +20,35 @@ public class ListAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");		
 		
-		if(request.getParameter("kwd") !=null) {
-			String keyword = request.getParameter("kwd");
-			BoardDao dao = new BoardDao();
-			List<BoardVo> list = dao.search(keyword);
-			request.setAttribute("list", list);
-
-			MvcUtil.forward("board/list", request, response);
-			return;
-		}
-		
-		
 		int pageno = 1;
-	
+		String keyword = null;
+		int totalPageNo;
+		List<BoardVo> list;
+		BoardDao dao = new BoardDao();
+
 		if(request.getParameter("pageindex") != null) {
 			String pageindex = request.getParameter("pageindex");
 			pageno = Integer.parseInt(pageindex);
 		}
+				
+		HttpSession session = request.getSession();
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if (authUser != null) {
+			Long no = authUser.getNo();
+			request.setAttribute("userNo", no);
+		}
 
-		BoardDao dao = new BoardDao();
-		List<BoardVo> list = dao.findAll(pageno);
-		int totalPageNo = dao.findTotalPage();
-		
+		if(request.getParameter("kwd") ==null) {
+			list = dao.findAll(pageno);
+			totalPageNo = dao.findTotalPage();
+			
+		}else {
+			keyword = request.getParameter("kwd");
+			list = dao.findAll(pageno,keyword);
+			totalPageNo = dao.findTotalPage(keyword);
+			request.setAttribute("keyword", keyword);
+		}
+	
 		request.setAttribute("curPageNo", pageno);
 		request.setAttribute("totalPageNo", totalPageNo);
 		request.setAttribute("list", list);

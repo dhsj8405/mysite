@@ -41,6 +41,7 @@
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
+
 							<c:if test = '${vo.userNo == userNo}'>
 								<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a></td>						
 							</c:if>
@@ -52,12 +53,20 @@
 				<div class="pager">
 					<ul>
 						<c:set var='count' value='${fn:length(list) }' />
+						<c:choose>
+							<c:when test = "${empty keyword }" >
+								<c:set var='pageindexUrl' value = '/board?a=list&pageindex=' />
+							</c:when>
+							<c:otherwise>
+								<c:set var='pageindexUrl' value = '/board?a=list&kwd=${keyword }&pageindex=' />
+							</c:otherwise>
+						</c:choose>
 						<c:choose>				
 							<c:when test='${curPageNo == 1}'>
 								<li>◀</li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${curPageNo-1 }">◀</a></li>
+								<li><a href="${pageContext.request.contextPath }${pageindexUrl}${curPageNo-1 }">◀</a></li>
 							</c:otherwise>
 						</c:choose>	
 						<c:forEach begin='${leftEdgeNo}' end='${leftEdgeNo+4 }' var='pageno'>
@@ -66,7 +75,7 @@
 										<li class = "selected">${pageno }</li>
 								</c:when> 
 								<c:when test = '${pageno <= totalPageNo }'>
-										<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${pageno }">${pageno }</a></li>
+										<li><a href="${pageContext.request.contextPath }${pageindexUrl}${pageno }">${pageno }</a></li>
 								</c:when>
 								<c:otherwise>
 									<li>${pageno }</li>
@@ -79,7 +88,7 @@
 								<li>▶</li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${pageContext.request.contextPath }/board?a=list&pageindex=${curPageNo+1 }">▶</a></li>		
+								<li><a href="${pageContext.request.contextPath }${pageindexUrl}${curPageNo+1 }">▶</a></li>		
 							</c:otherwise>
 						</c:choose>
 						
