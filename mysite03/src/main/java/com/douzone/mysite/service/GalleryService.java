@@ -4,22 +4,34 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.douzone.mysite.repository.GalleryRepository;
+import com.douzone.mysite.vo.GalleryVo;
 
 @Service
 public class GalleryService {
 	private static String SAVE_PATH = "/upload-images";
 	private static String URL_BASE = "/images";					//위에거 매핑한것
 	
-	public String restore(MultipartFile multipartFile) {
+	@Autowired
+	GalleryRepository galleryRepository; 
+	
+	public List<GalleryVo> getImage() {
+		return galleryRepository.findAll();
+	}
+	
+	public String saveImage(MultipartFile multipartFile, String comments) {
 		String url = null;
 		try {
 			if(multipartFile.isEmpty()) {
 				return url;
 			}
-
+			
 			String originFilename = multipartFile.getOriginalFilename();
 			String extName = originFilename.substring(originFilename.lastIndexOf('.')+1);
 			String saveFilename = generateSaveFilename(extName);
@@ -33,6 +45,12 @@ public class GalleryService {
 			os.close();
 			
 			url = URL_BASE + "/" + saveFilename;
+			
+			GalleryVo vo = new GalleryVo();
+			vo.setUrl(url);
+			vo.setComments(comments);
+			
+			galleryRepository.insert(vo);
 			}catch(IOException ex) {
 				throw new RuntimeException("file upload error:" + ex);
 			}
@@ -52,5 +70,11 @@ public class GalleryService {
 		filename += ("." + extName);
 		return filename ;
 	}
+
+	public void deleteImage(Long no) {
+		galleryRepository.delete(no);
+	}
+
+
 	
 }
