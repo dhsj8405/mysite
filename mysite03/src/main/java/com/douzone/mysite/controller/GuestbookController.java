@@ -23,7 +23,7 @@ public class GuestbookController {
 	public String index(Model model) {
 		List<GuestbookVo> list = guestbookService.getMessageList();
 		model.addAttribute("list", list);
-		return "guestbook/index";
+		return "guestbook/list";
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
@@ -40,6 +40,7 @@ public class GuestbookController {
 
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
 	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
+		System.out.println(no +"-------------"+password+"--------------------");
 		guestbookService.deleteMessage(no, password);
 		return "redirect:/guestbook";
 	}
