@@ -9,10 +9,11 @@
 	</parent>
 	<artifactId>mysite03</artifactId>
 	<packaging>war</packaging>
+	
 	<properties>
-		<orgspringframework-version>4.3.4.RELEASE</orgspringframework-version>
+		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
 		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
-		<logback.version>1.1.1</logback.version>
+		<logback.version>1.1.1</logback.version>		
 	</properties>
 
 	<dependencies>
@@ -20,51 +21,52 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${orgspringframework-version}</version>
+			<version>${org.springframework-version}</version>
 			<!-- JCL 제외 -->
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
-			</exclusions>
+			</exclusions>			
 		</dependency>
 
 		<!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${orgspringframework-version}</version>
+			<version>${org.springframework-version}</version>
 		</dependency>
+		
 		<!-- Spring Web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${orgspringframework-version}</version>
+			<version>${org.springframework-version}</version>
 		</dependency>
-		<!-- Spring Aspect -->
+		
+		<!--  Spring Aspect -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
-			<version>${orgspringframework-version}</version>
+			<version>${org.springframework-version}</version>
 		</dependency>
-
+			
 		<!-- Spring JDBC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${orgspringframework-version}</version>
-		</dependency>
-
+			<version>${org.springframework-version}</version>
+		</dependency>				
 
 		<!-- jstl -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
 		</dependency>
-
-		<!-- MariaDB JDBC Driver -->
+		
+		<!-- MariaDB JDBC Driver -->		
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
@@ -83,14 +85,12 @@
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.2.2</version>
-		</dependency>
-
+			</dependency>
 		<dependency>
-			<groupId>org.mybatis</groupId>
+		<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.0</version>
 		</dependency>
-
 
 		<!-- logback(slf4j) -->
 		<dependency>
@@ -103,7 +103,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-
+								
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -134,6 +134,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
 				<configuration>
 					<url>http://127.0.0.1:8088/manager/text</url>
 					<path>/mysite03</path>
@@ -142,5 +143,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build>	
 </project>

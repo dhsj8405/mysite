@@ -17,32 +17,30 @@ import com.douzone.mysite.vo.GuestbookVo;
 @RequestMapping("/guestbook")
 public class GuestbookController {
 	@Autowired
-	private GuestbookService guestbookService;
+	GuestbookService guestbookService;
 	
-	@RequestMapping(value= "",method=RequestMethod.GET)
-		public String list(GuestbookVo guestbookVo, Model model) {
-		List<GuestbookVo> list = guestbookService.find(guestbookVo);
-		model.addAttribute("list",list);
-		return "guestbook/list";
-		}
+	@RequestMapping("")
+	public String index(Model model) {
+		List<GuestbookVo> list = guestbookService.getMessageList();
+		model.addAttribute("list", list);
+		return "guestbook/index";
+	}
 	
-	@RequestMapping(value="", method=RequestMethod.POST)
+	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(GuestbookVo vo) {
-		guestbookService.insert(vo);
+		guestbookService.addMessage(vo);
 		return "redirect:/guestbook";
 	}
 	
-	@RequestMapping(value="/delete/{no}",  method=RequestMethod.GET)
-	public String delete(@PathVariable ("no") Long no, Model model) {
-		model.addAttribute("no",no);
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
+	public String delete(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("no", no);
 		return "guestbook/delete";
 	}
 
-
-	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public String delete(Long no, String password) {
-		guestbookService.delete(no, password);
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
+	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
+		guestbookService.deleteMessage(no, password);
 		return "redirect:/guestbook";
 	}
-
 }
