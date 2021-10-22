@@ -84,7 +84,7 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
 -- delete 
 delete from board where no ='16';
 
-
+select * from guestbook;
 select * from board;
 select * from user;
 -- inform insert
@@ -169,4 +169,9 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
  from board b,user u
  where b.user_no = u.no
    and b.title like '%d%'
- ORDER BY group_no desc, order_no ASC LIMIT 10,10;                
+ ORDER BY group_no desc, order_no ASC LIMIT 10,10;          
+ 
+ 
+ insert into user values(null,'관리자','admin@mysite.com','1234','male', now(), 'ADMIN');
+ alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
+ select * from user;
