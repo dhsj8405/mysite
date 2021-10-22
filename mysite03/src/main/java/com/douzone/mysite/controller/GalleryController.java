@@ -32,9 +32,7 @@ public class GalleryController {
 			@RequestParam (value = "comments", required= true, defaultValue = "") String comments,
 			@RequestParam(value="file") MultipartFile multipartFile,
 			Model model) {
-			System.out.println("comments:"+comments);
 			String url = galleryService.saveImage(multipartFile,comments);
-			System.out.println(url);
 			model.addAttribute("url",url);
 			return "redirect:/gallery";
 		}
