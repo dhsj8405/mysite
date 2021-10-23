@@ -3,26 +3,20 @@ package com.douzone.mysite.vo;
 public class BoardVo {
 	private Long no;
 	private String title;
-	private String content;
-	private String name;
-	private int hit;
+	private String contents;
 	private String regDate;
-	private Long groupNo;
-	private int orderNo;
-	private int dept;
+	private Integer hit;
+	private Integer groupNo;
+	private Integer orderNo;
+	private Integer depth;
 	private Long userNo;
+	private String userName;
+	
 	public Long getNo() {
 		return no;
 	}
 	public void setNo(Long no) {
 		this.no = no;
-	}
-	
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
 	}
 	public String getTitle() {
 		return title;
@@ -30,17 +24,11 @@ public class BoardVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getName() {
-		return name;
+	public String getContents() {
+		return contents;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getHit() {
-		return hit;
-	}
-	public void setHit(int hit) {
-		this.hit = hit;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -48,23 +36,29 @@ public class BoardVo {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	public Long getGroupNo() {
+	public Integer getHit() {
+		return hit;
+	}
+	public void setHit(Integer hit) {
+		this.hit = hit;
+	}
+	public Integer getGroupNo() {
 		return groupNo;
 	}
-	public void setGroupNo(Long groupNo) {
+	public void setGroupNo(Integer groupNo) {
 		this.groupNo = groupNo;
 	}
-	public int getOrderNo() {
+	public Integer getOrderNo() {
 		return orderNo;
 	}
-	public void setOrderNo(int orderNo) {
+	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
-	public int getDept() {
-		return dept;
+	public Integer getDepth() {
+		return depth;
 	}
-	public void setDept(int dept) {
-		this.dept = dept;
+	public void setDepth(Integer depth) {
+		this.depth = depth;
 	}
 	public Long getUserNo() {
 		return userNo;
@@ -72,5 +66,16 @@ public class BoardVo {
 	public void setUserNo(Long userNo) {
 		this.userNo = userNo;
 	}
-	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	@Override
+	public String toString() {
+		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate + ", hit="
+				+ hit + ", groupNo=" + groupNo + ", orderNo=" + orderNo + ", depth=" + depth + ", userNo=" + userNo
+				+ ", userName=" + userName + "]";
+	}
 }

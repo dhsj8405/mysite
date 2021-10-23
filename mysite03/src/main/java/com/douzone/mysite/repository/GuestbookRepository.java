@@ -13,7 +13,11 @@ public class GuestbookRepository {
 	private SqlSession sqlSession;
 	
 	public List<GuestbookVo> findAll() throws GuestbookRepositoryException {
-		return sqlSession.selectList("guestbook.findAll");
+		List<GuestbookVo> result = sqlSession.selectList("guestbook.findAll");
+		System.out.println(result.get(0));
+		System.out.println(result.get(1));
+		
+		return result;
 	}
 	
 	public boolean delete(GuestbookVo vo) {
