@@ -175,3 +175,17 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
  insert into user values(null,'관리자','admin@mysite.com','1234','male', now(), 'ADMIN');
  alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
  select * from user;
+ 
+ 
+  select a.no,
+				  		 a.title,
+				  		 a.hit,
+				  		 date_format(a.reg_date, '%Y-%m-%d %p %h:%i:%s') as regDate,
+				  		 a.depth, 
+				  		 b.name as userName,
+				  		 a.user_no as userNo
+				  	from board a, user b
+				   where a.user_no = b.no
+				     and (title like '%${keyword }%' or contents like '%${keyword }%')
+				order by group_no desc, order_no asc;
+				   
