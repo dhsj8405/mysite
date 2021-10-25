@@ -21,6 +21,12 @@
 		select no,name,email,gender from user where no = #{no }
 	]]>
 	</select>
+	<!-- 파라미터 타입이 값객체일대 #{아무이름 : 웬만하면 의미있는이름으로} -->
+	<select id = "findByEmail" parameterType ="string" resultType ="uservo">
+	<![CDATA[
+		select no,name,email,gender from user where email = #{email }
+	]]>
+	</select>
 	
 </mapper>
 	

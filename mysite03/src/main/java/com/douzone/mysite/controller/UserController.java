@@ -56,5 +56,5 @@ public class UserController {
 		authUser.setName(userVo.getName());
 		return "redirect:/user/update";
 	}	
-	
+		
 }
