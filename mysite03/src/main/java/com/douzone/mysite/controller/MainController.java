@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.mysite.service.AdminService;
-import com.douzone.mysite.service.SiteService;
-import com.douzone.mysite.vo.SiteVo;
+import com.douzone.mysite.vo.AdminSiteVo;
 
 @Controller
 public class MainController {
 	@Autowired
-	private SiteService siteService;
+	private AdminService adminService;
 //	@Auth("USER")
 //	@Auth(role = "USER")
 	@RequestMapping({"","/main"})
 	public String index(Model model) {
-		SiteVo siteVo = siteService.getContents();
-		model.addAttribute("siteVo", siteVo);
+		AdminSiteVo adminSiteVo = adminService.getContents();
+		model.addAttribute("siteVo", adminSiteVo);
 		return "main/index";
 	}
 	
