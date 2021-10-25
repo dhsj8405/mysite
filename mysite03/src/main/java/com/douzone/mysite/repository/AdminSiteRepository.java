@@ -1,7 +1,5 @@
 package com.douzone.mysite.repository;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,15 +12,11 @@ public class AdminSiteRepository {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	public List<AdminSiteVo> findAll() throws AdminSiteRepositoryException{
-		System.out.println("2");
-		List<AdminSiteVo> result = sqlSession.selectList("adminsite.findAll");
-		System.out.println(result);
-		System.out.println(result.get(0));
-		
-
-		System.out.println("3");
-		return result;
+	public AdminSiteVo findAll() throws AdminSiteRepositoryException{
+		return sqlSession.selectOne("adminsite.findAll");
+	}
+	public void update(AdminSiteVo adminSiteVo) {
+		sqlSession.update("adminsite.update", adminSiteVo);
 	}
 
 

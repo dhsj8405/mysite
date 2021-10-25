@@ -1,6 +1,6 @@
 package com.douzone.mysite.vo;
 
-public class AdminSiteVo {
+public class SiteVo {
 	
 	private Long no;
 	private String title;

@@ -1,11 +1,8 @@
 package com.douzone.mysite.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.service.AdminService;
 import com.douzone.mysite.vo.AdminSiteVo;
-import com.douzone.mysite.vo.GalleryVo;
 
 @Auth(role="ADMIN")
 @Controller
@@ -31,18 +27,25 @@ public class AdminController {
 //	}
 	@RequestMapping({"","/main"})
 	public String main(Model model) {
-		List<AdminSiteVo> list = adminService.getContents();
-		model.addAttribute("list",list);
-		System.out.println(list);
+		AdminSiteVo adminSiteVo = adminService.getContents();
+		model.addAttribute("adminSiteVo", adminSiteVo);
 		return "admin/main";
 	}
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
 	public String upload(
-			@RequestParam (value = "title", required= true, defaultValue = "") String title,
-			@RequestParam (value = "welcomMessage", required= true, defaultValue = "") String welcome,
-			@RequestParam(value="file") MultipartFile multipartFile,
-			@RequestParam (value = "description", required= true, defaultValue = "") String description
+			AdminSiteVo adminSiteVo,
+//			@RequestParam (value = "title", required= true, defaultValue = "") String title,
+//			@RequestParam (value = "welcom", required= true, defaultValue = "") String welcome,
+			@RequestParam(value="file") MultipartFile multipartFile
 			) {
+		System.out.println("#####################");
+		System.out.println(adminSiteVo);
+		System.out.println("#####################");
+		if(multipartFile.isEmpty()) {
+			return "redirect:/admin/main";
+		}
+		adminService.modifyContents(adminSiteVo,multipartFile);
+
 		return "redirect:/admin/main";
 	}
 	

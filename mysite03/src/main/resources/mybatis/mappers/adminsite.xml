@@ -3,7 +3,17 @@
 <mapper namespace="adminsite">
 	<select id="findAll" resultType="adminsitevo">
 		<![CDATA[
-		  select title, welcome, profile, description from site
+		  select no, title, welcome, profile, description from site
 		]]>
 	</select>
+		<update id="update" parameterType ="adminsitevo">
+		<![CDATA[
+		update site 
+		   set title = #{title }, 
+		       welcome = #{welcome }, 
+		       profile = #{profile }, 
+		       description = #{description }
+		]]>
+	</update>
+	
 </mapper>

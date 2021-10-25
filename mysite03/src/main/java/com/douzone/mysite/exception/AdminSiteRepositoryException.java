@@ -1,6 +1,6 @@
 package com.douzone.mysite.exception;
 
-public class AdminSiteRepositoryException extends Exception {
+public class AdminSiteRepositoryException extends RuntimeException {
 private static final long serialVersionUID = 1L;
 	
 	public AdminSiteRepositoryException() {
