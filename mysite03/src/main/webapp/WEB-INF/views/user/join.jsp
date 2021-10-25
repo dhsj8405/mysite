@@ -10,29 +10,24 @@
 <link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
 <script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
-i=10;
-j=1;
+$(function(){
+	$("#btn-check-email").click(function(){
+		var email = $("#email").val();
 
-setTimeout(function(){
-	// ajax
-
-	$.ajax({
-		url: "/mysite03/hello",
-		type: "get",
-		dataType: "json",
-		success: function(response){
-			console.log(response);
+		if(email == ''){
+			return;
 		}
+		console.log(email);		
+		$.ajax({
+			url: "${pageContext.request.contextPath }/user/checkemail?email="+email,
+			type: "get",
+			dataType: "json",
+			success: function(response){
+				console.log(response);
+			}
+		});
 	});
-	
-	
-	//p = $("#test");
-	//p.html("<strong>"+ o.message +"</strong>");
-},3000);
-for(i = 0; i < 5; i++){
-	console.log("Hello World" + i);
-	
-}
+});
 
 </script>
 </head>
@@ -48,7 +43,7 @@ for(i = 0; i < 5; i++){
 
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
-					<input type="button" value="중복체크">
+					<input id = "btn-check-email" type="button" value="중복체크">
 					
 					<label class="block-label">패스워드</label>
 					<input name="password" type="password" value="">

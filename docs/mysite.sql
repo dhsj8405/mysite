@@ -176,7 +176,7 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
  alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
  select * from user;
  
- 
+ select * from board;
   select a.no,
 				  		 a.title,
 				  		 a.hit,
@@ -188,4 +188,17 @@ select b.no, b.title, u.name, b.hit, b.reg_date, b.group_no, b.order_no, b.dept,
 				   where a.user_no = b.no
 				     and (title like '%${keyword }%' or contents like '%${keyword }%')
 				order by group_no desc, order_no asc;
-				   
+		
+-- mysite 03 board insert
+insert
+				  into board
+				values ( null,
+						 '제목',
+						 'ㅎㅇㅎㅇ',
+						 now(),
+						 0,
+						 ( select ifnull( max( group_no ), 0 ) + 1
+						     from board a ),
+						 1, 
+						 0, 
+						 1 )    ;               
