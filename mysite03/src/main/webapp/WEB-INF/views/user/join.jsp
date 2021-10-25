@@ -8,6 +8,33 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script>
+i=10;
+j=1;
+
+setTimeout(function(){
+	// ajax
+
+	$.ajax({
+		url: "/mysite03/hello",
+		type: "get",
+		dataType: "json",
+		success: function(response){
+			console.log(response);
+		}
+	});
+	
+	
+	//p = $("#test");
+	//p.html("<strong>"+ o.message +"</strong>");
+},3000);
+for(i = 0; i < 5; i++){
+	console.log("Hello World" + i);
+	
+}
+
+</script>
 </head>
 <body>
 	<div id="container">
@@ -43,6 +70,8 @@
 				</form>
 			</div>
 		</div>
+		<p id="test">
+		</p>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
