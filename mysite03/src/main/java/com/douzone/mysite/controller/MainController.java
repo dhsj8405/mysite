@@ -3,25 +3,25 @@ package com.douzone.mysite.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.douzone.mysite.service.AdminService;
-import com.douzone.mysite.vo.AdminSiteVo;
+import com.douzone.mysite.vo.SiteVo;
 
 @Controller
 public class MainController {
+
+	
 	@Autowired
-	private AdminService adminService;
-//	@Auth("USER")
-//	@Auth(role = "USER")
+	ServletContext servletContext;
+	
 	@RequestMapping({"","/main"})
-	public String index(Model model) {
-		AdminSiteVo adminSiteVo = adminService.getContents();
-		model.addAttribute("siteVo", adminSiteVo);
+	public String index() {
 		return "main/index";
 	}
 	

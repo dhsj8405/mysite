@@ -1,5 +1,7 @@
 package com.douzone.mysite.controller;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,43 +11,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.douzone.mysite.security.Auth;
-import com.douzone.mysite.service.AdminService;
-import com.douzone.mysite.vo.AdminSiteVo;
+import com.douzone.mysite.service.SiteService;
+import com.douzone.mysite.vo.SiteVo;
 
 @Auth(role="ADMIN")
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	@Autowired
+	ServletContext servletContext;
 	
 	@Autowired
-	private AdminService adminService;
-	
+	private SiteService siteService;
+		
 	
 //	@RequestMapping({"","/main"})
 //	public String main() {
 //		return "admin/main";
 //	}
+	
 	@RequestMapping({"","/main"})
 	public String main(Model model) {
-		AdminSiteVo adminSiteVo = adminService.getContents();
-		model.addAttribute("adminSiteVo", adminSiteVo);
+		SiteVo siteVo = siteService.getContents();
+		servletContext.setAttribute("siteVo", siteVo);
+		model.addAttribute("adminSiteVo", siteVo);
 		return "admin/main";
 	}
 	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
 	public String upload(
-			AdminSiteVo adminSiteVo,
-//			@RequestParam (value = "title", required= true, defaultValue = "") String title,
-//			@RequestParam (value = "welcom", required= true, defaultValue = "") String welcome,
+			SiteVo siteVo,
 			@RequestParam(value="file") MultipartFile multipartFile
 			) {
-		System.out.println("#####################");
-		System.out.println(adminSiteVo);
-		System.out.println("#####################");
-		if(multipartFile.isEmpty()) {
-			return "redirect:/admin/main";
-		}
-		adminService.modifyContents(adminSiteVo,multipartFile);
-
+		
+		siteService.modifyContents(siteVo,multipartFile);
 		return "redirect:/admin/main";
 	}
 	
