@@ -83,6 +83,6 @@ public class UserController {
 	@RequestMapping(value ="/logout",method=RequestMethod.GET)
 	public void logout() {
 		
-	}
+	} 
 	
 }

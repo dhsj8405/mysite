@@ -21,15 +21,15 @@ import com.douzone.mysite.interceptor.SiteInterceptor;
 @Import({ MvcConfig.class, MessageConfig.class, FileUploadConfig.class, SecurityConfig.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
 	// SiteInterceptors
-	@Bean
-	public HandlerInterceptor siteInterceptor() {
-		return new SiteInterceptor();
-	}
-
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(siteInterceptor()).addPathPatterns("/**");
-
-	}
+//	@Bean
+//	public HandlerInterceptor siteInterceptor() {
+//		return new SiteInterceptor();
+//	}
+//
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(siteInterceptor()).addPathPatterns("/**");
+//
+//	}
 
 }

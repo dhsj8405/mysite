@@ -9,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.douzone.mysite.interceptor.SiteInterceptor;
 import com.douzone.mysite.security.AuthInterceptor;
 import com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver;
 import com.douzone.mysite.security.LoginInterceptor;
@@ -43,6 +44,11 @@ public class SecurityConfig extends WebMvcConfigurerAdapter {
 		return new AuthInterceptor();
 	}
 	
+	@Bean
+	public HandlerInterceptor  siteInterceptor() {
+		return new SiteInterceptor();
+	}
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry
@@ -59,6 +65,10 @@ public class SecurityConfig extends WebMvcConfigurerAdapter {
 			.excludePathPatterns("/user/auth")
 			.excludePathPatterns("/user/logout")
 			.excludePathPatterns("/assets/**");
+		
+		registry
+			.addInterceptor(siteInterceptor())
+			.addPathPatterns("/**");
 	}
 	
 	
