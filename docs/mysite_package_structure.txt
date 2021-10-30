@@ -39,5 +39,3 @@
 	|       |       |        |        |        |--- web
 	|       |       |        |        |        |      |--- message_ko.properties
 	|       |       |        |        |        |      |--- fileupload.properties
-
-
