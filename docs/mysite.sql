@@ -202,3 +202,14 @@ insert
 						 1, 
 						 0, 
 						 1 )    ;               
+
+
+select * from user;
+                         
+-- mysite 03 admin
+
+-- -- adminmysite
+select title, welcome, profile, description from site;
+
+update site set title = 'test1', welcome ='test1', profile = 'test3', description = '4';
+ 
