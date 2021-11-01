@@ -40,7 +40,8 @@ public class AdminController {
 	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
 	public String upload(
 			SiteVo siteVo,
-			@RequestParam(value="file") MultipartFile multipartFile	) {
+			@RequestParam(value="file") MultipartFile multipartFile
+			) {
 		
 		siteService.modifyContents(siteVo,multipartFile);
 		return "redirect:/admin/main";
