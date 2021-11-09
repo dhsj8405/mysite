@@ -41,11 +41,9 @@ public class AdminController {
 	public String upload(
 			SiteVo siteVo,
 			@RequestParam(value="file") MultipartFile multipartFile	) {
-		
 		siteService.modifyContents(siteVo,multipartFile);
 		return "redirect:/admin/main";
 	}
-	
 	@RequestMapping("/guestbook")
 	public String guestbook() {
 		return "admin/guestbook";

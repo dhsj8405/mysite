@@ -204,8 +204,8 @@ insert
 						 1 )    ;               
 
 
+
 select * from user;
-                  
 -- mysite 03 admin
 
 -- -- adminmysite
