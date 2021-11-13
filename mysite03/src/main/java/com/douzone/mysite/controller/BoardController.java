@@ -62,7 +62,7 @@ public class BoardController {
 		return "redirect:/board/view/" + boardVo.getNo() + "?p=" + page + "&kwd=" + WebUtil.encodeURL(keyword, "UTF-8");
 	}
 
-	@Auth(role = "USER")
+	@Auth
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String write() {
 		return "board/write";

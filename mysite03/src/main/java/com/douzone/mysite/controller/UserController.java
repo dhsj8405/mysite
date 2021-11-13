@@ -22,28 +22,25 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join(@ModelAttribute UserVo vo) { //join.jsp에 	modelAttribute="userVo"때문에 상단 네비 회원가입하기 오류 해결위해 파라미터 추가 
-
+	public String join(@ModelAttribute UserVo vo) {
 		return "user/join";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
-		System.out.println(result);
 		if(result.hasErrors()) {
 //			List<ObjectError> list = result.getAllErrors();
 //			for(ObjectError error : list) {
 //				System.out.println(error);
 //			}
-//			model.addAttribute("userVo", map.get("userVo"));
+			
 			model.addAllAttributes(result.getModel());
-			// 파라미터 :( @ModelAttribute @Valid UserVo vo) 는 
-			// model.addAttribute("userVo",vo); 와 같다.
+			// model.addAttribute("userVo", vo);
 			return "user/join";
 		}
-
+		
+		
 		userService.join(vo);
-
 		return "redirect:/user/joinsuccess";
 	}
 	
@@ -56,24 +53,24 @@ public class UserController {
 	public String login() {
 		return "user/login";
 	}
+	
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(@AuthUser UserVo authUser, Model model) {
-		// 접근제어(Access Control List)
 		UserVo userVo = userService.getUser(authUser.getNo());
 		model.addAttribute("userVo", userVo);
 		
 		return "user/update";
 	}	
+
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(@AuthUser UserVo authUser, UserVo userVo) {
-				
 		userVo.setNo(authUser.getNo());
+
 		userService.updateUser(userVo);
-		
 		authUser.setName(userVo.getName());
+		
 		return "redirect:/user/update";
 	}	
-		
 }

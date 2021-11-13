@@ -1,11 +1,11 @@
 package com.douzone.mysite.dto;
 
 public class JsonResult {
-	private String result;	 	/* "success" or "fail */
-	private Object data; 		/* if success, set */
-	private String message; 	/* if fail, set*/
+	private String result;  /* "success" or "fail" */
+	private Object data;    /* if success, set */
+	private String message; /* if fail, set */
 	
-	private JsonResult() {}		// 생성자로 필드 맘대로 세팅못하게 막는것
+	private JsonResult() {}
 	private JsonResult(Object data) {
 		result = "success";
 		this.data = data;
@@ -20,10 +20,10 @@ public class JsonResult {
 	public static JsonResult success(Object data) {
 		return new JsonResult(data);
 	}
+	
 	public static JsonResult fail(String message) {
 		return new JsonResult(message);
 	}
-	
 	public String getResult() {
 		return result;
 	}
@@ -33,6 +33,4 @@ public class JsonResult {
 	public String getMessage() {
 		return message;
 	}
-	
-	
 }

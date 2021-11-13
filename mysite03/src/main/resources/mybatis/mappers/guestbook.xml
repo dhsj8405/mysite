@@ -31,5 +31,34 @@
 		order by reg_date desc
 		]]>
 	</select>
+	
+	<select id="findAllBySN" parameterType="map" resultType="guestbookvo">
+		<choose>
+			<when test="no == -1">
+				<![CDATA[
+					select no, name, message
+				      from guestbook				      
+		          order by no desc
+		             limit 3; 
+	             ]]>
+	             
+			</when>
+			<otherwise>
+				<![CDATA[
+					select no, name, message
+				      from guestbook
+			         where no < #{no }
+			      order by no desc
+		             limit 3;
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insertBySpa" parameterType="guestbookvo">
+		<![CDATA[
+		insert into guestbook values(null, #{name }, #{password }, #{message }, now())
+		]]>
+	</insert>
 
 </mapper>

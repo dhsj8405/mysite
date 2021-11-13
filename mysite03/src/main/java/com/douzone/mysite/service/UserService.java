@@ -14,14 +14,16 @@ public class UserService {
 	public void join(UserVo vo) {
 		userRepository.insert(vo);
 	}
-	public UserVo getUser(String email) {	//중복체크
+
+	public UserVo getUser(String email) {
 		return userRepository.findByEmail(email);
 	}
-	public UserVo getUser(Long no) {	//업데이트
+	
+	public UserVo getUser(Long no) {
 		return userRepository.findByNo(no);
 	}
 
-	public UserVo getUser(String email, String password) {		//로그인
+	public UserVo getUser(String email, String password) {
 		return userRepository.findByEmailAndPassword(email, password);
 	}
 

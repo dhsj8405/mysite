@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.service.GuestbookService;
 import com.douzone.mysite.vo.GuestbookVo;
 
@@ -20,19 +18,18 @@ public class GuestbookController {
 	@Autowired
 	GuestbookService guestbookService;
 	
-	
 	@RequestMapping("")
 	public String index(Model model) {
 		List<GuestbookVo> list = guestbookService.getMessageList();
 		model.addAttribute("list", list);
-		return "guestbook/list";
+		return "guestbook/index";
 	}
-	
+
 	@RequestMapping("/spa")
 	public String spa() {
 		return "guestbook/index-spa";
 	}
-	
+
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(GuestbookVo vo) {
 		guestbookService.addMessage(vo);
@@ -47,7 +44,6 @@ public class GuestbookController {
 
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
 	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
-		System.out.println(no +"-------------"+password+"--------------------");
 		guestbookService.deleteMessage(no, password);
 		return "redirect:/guestbook";
 	}

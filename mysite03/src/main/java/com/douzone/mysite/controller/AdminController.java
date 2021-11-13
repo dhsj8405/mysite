@@ -2,15 +2,18 @@ package com.douzone.mysite.controller;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.mysite.exception.FileUploadException;
 import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.service.FileUploadService;
 import com.douzone.mysite.service.SiteService;
 import com.douzone.mysite.vo.SiteVo;
 
@@ -18,32 +21,39 @@ import com.douzone.mysite.vo.SiteVo;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	private static final Log LOGGER = LogFactory.getLog(AdminController.class);
+
 	@Autowired
-	ServletContext servletContext;
+	private ServletContext servletContext;
 	
 	@Autowired
 	private SiteService siteService;
-		
-	
-//	@RequestMapping({"","/main"})
-//	public String main() {
-//		return "admin/main";
-//	}
-	
-	@RequestMapping({"","/main"})
+
+	@Autowired
+	private FileUploadService fileUploadService;
+
+	@RequestMapping("")
 	public String main(Model model) {
-		SiteVo siteVo = siteService.getContents();
-		servletContext.setAttribute("siteVo", siteVo);
-		model.addAttribute("adminSiteVo", siteVo);
+		SiteVo site = siteService.getSite();
+		model.addAttribute("site", site);
 		return "admin/main";
 	}
-	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
-	public String upload(
-			SiteVo siteVo,
-			@RequestParam(value="file") MultipartFile multipartFile	) {
-		siteService.modifyContents(siteVo,multipartFile);
-		return "redirect:/admin/main";
-	}
+	
+	@RequestMapping("/main/update")
+	public String main(SiteVo site, @RequestParam("file") MultipartFile file) {
+		try {
+			String profile = fileUploadService.restoreImage(file);
+			site.setProfile(profile);
+		} catch(FileUploadException ex) {
+			LOGGER.info("Admin Main Update:" + ex);
+		}
+		
+		siteService.update(site);
+		servletContext.setAttribute("site", site);
+		
+		return "redirect:/admin";
+	}	
+	
 	@RequestMapping("/guestbook")
 	public String guestbook() {
 		return "admin/guestbook";
@@ -58,20 +68,5 @@ public class AdminController {
 	public String user() {
 		return "admin/user";
 	}
+	
 }
-
-//	
-//@RequestMapping(value="/upload", method=RequestMethod.POST)
-//public String upload(
-//		@RequestParam (value = "comments", required= true, defaultValue = "") String comments,
-//		@RequestParam(value="file") MultipartFile multipartFile,
-//		Model model) {
-//		String url = galleryService.saveImage(multipartFile,comments);
-//		model.addAttribute("url",url);
-//		return "redirect:/gallery";
-//	}
-//@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
-//public String delete(@PathVariable("no") Long no) {
-//	galleryService.deleteImage(no);
-//	return "redirect:/gallery";
-//}

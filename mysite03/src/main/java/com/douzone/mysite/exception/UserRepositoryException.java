@@ -6,8 +6,8 @@ public class UserRepositoryException extends RuntimeException {
 	public UserRepositoryException(String message) {
 		super(message);
 	}
+	
 	public UserRepositoryException() {
 		super("UserRepository 예외 발생");
 	}
-
 }

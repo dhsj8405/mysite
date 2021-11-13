@@ -212,4 +212,14 @@ select * from user;
 select title, welcome, profile, description from site;
 
 update site set title = 'test1', welcome ='test1', profile = 'test3', description = '4';
+
+
+
+select * from guestbook;
+-- 스크롤 이벤트 
+	select no, name, message
+		    from guestbook
+            where no < 49
+		order by no desc 
+        limit 3;
  

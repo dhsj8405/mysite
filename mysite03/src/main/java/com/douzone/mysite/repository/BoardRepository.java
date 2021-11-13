@@ -23,7 +23,7 @@ public class BoardRepository {
 	}
 	
 	public List<BoardVo> findAllByPageAndKeword( String keyword, Integer page, Integer size ) {
-		//page = 현재페이지,  size = 페이지당 출력할 게시물 수
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put( "keyword", keyword );
 		map.put( "startIndex", (page-1)*size );

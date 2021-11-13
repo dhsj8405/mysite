@@ -10,8 +10,8 @@
 				values ( null,
 						 #{title },
 						 #{contents },
-						 0,
 						 now(),
+						 0,
 						 ( select ifnull( max( group_no ), 0 ) + 1
 						     from board a ),
 						 1, 
@@ -26,8 +26,8 @@
 				values ( null,
 						 #{title },
 						 #{contents },
-						 0,
 						 now(),
+						 0,
 						 #{groupNo },
 						 #{orderNo }, 
 						 #{depth }, 
@@ -55,7 +55,7 @@
 		   and user_no = #{userNo }
 		]]>	
 	</delete>
-	<!-- 게시글 보기 -->
+
 	<select id="findByNo" parameterType="long" resultType="boardvo">
 		<![CDATA[
 		select	no,
@@ -69,7 +69,7 @@
 		  where no = #{no }		
 		]]>		
 	</select>
-	<!-- 게시글 수정 -->
+	
 	<select id="findByNoAndUserNo" parameterType="map" resultType="boardvo">
 		<![CDATA[
 		select	no,
@@ -80,7 +80,7 @@
 		    and user_no = #{userNo }		
 		]]>		
 	</select>	
-	<!-- 게시글 목록 -->	
+		
 	<select id="findAllByPageAndKeword" parameterType="map" resultType="boardvo">
 		<choose>
 			<when test="keyword == null or keyword == ''">
@@ -133,7 +133,7 @@
 		   and order_no >= #{orderNo }
 		]]>	
 	</update>	
-	<!-- 게시글 수 :페이징에 사용-->
+	
 	<select id="totalCount" parameterType="string" resultType="integer">
 		<choose>
 			<when test="_parameter == null or _parameter == ''">

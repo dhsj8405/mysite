@@ -28,4 +28,17 @@ public class GuestbookService {
 	public boolean addMessage(GuestbookVo vo) {
 		return guestbookRepository.insert(vo);
 	}
+
+	public List<GuestbookVo> findAll(Long no) {
+		return guestbookRepository.findAllBySN(no);
+	}
+
+	public GuestbookVo addMessageBySpa(GuestbookVo vo) {
+		return guestbookRepository.insertBySpa(vo);
+	}
+
+	public Long deleteMessageBySpa(Long no) {
+		// 
+		return null;
+	}
 }
