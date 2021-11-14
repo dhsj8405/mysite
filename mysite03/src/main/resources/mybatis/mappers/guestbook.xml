@@ -55,10 +55,5 @@
 		</choose>
 	</select>
 	
-	<insert id="insertBySpa" parameterType="guestbookvo">
-		<![CDATA[
-		insert into guestbook values(null, #{name }, #{password }, #{message }, now())
-		]]>
-	</insert>
 
 </mapper>
