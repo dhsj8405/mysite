@@ -165,6 +165,7 @@ $(function(){
 	fetch();
 
 	//스크롤
+	
 	$(function(){
 		$(window).scroll(function(){
 			var $window = $(this);

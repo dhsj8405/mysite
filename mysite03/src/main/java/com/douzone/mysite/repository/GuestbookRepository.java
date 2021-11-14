@@ -38,9 +38,5 @@ public class GuestbookRepository {
 		return sqlSession.selectList("guestbook.findAllBySN", map);
 	}
 
-	public GuestbookVo insertBySpa(GuestbookVo vo) {
-		sqlSession.insert("guestbook.insertBySpa",vo);
-		
-		return vo;
-	}
+
 }

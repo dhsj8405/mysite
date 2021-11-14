@@ -5,7 +5,7 @@
 	version="3.0">
 	<display-name>mysite04</display-name>
 
-	<context-param>
+	 <context-param>
 		<param-name>contextClass</param-name>
 		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
 	</context-param>
@@ -13,6 +13,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>com.douzone.mysite.config.AppConfig</param-value>
 	</context-param>
+	
 
 	<!-- ContextLoad Listener -->
 	<listener>

@@ -23,8 +23,8 @@ public class GuestbookController {
 	@ResponseBody
 	@RequestMapping("/add")
 	public JsonResult ex1(@RequestBody GuestbookVo vo) {
-		vo = guestbookService.addMessageBySpa(vo); 
-		
+//		vo = guestbookService.addMessageBySpa(vo);
+		guestbookService.addMessage(vo);
 //		vo.setNo(1L);
 //		vo.setPassword("");
 		return JsonResult.success(vo);
