@@ -14,7 +14,11 @@ public class GuestbookService {
 	GuestbookRepository guestbookRepository;
 	
 	public List<GuestbookVo> getMessageList() {
-			return guestbookRepository.findAll();
+		return guestbookRepository.findAll();
+	}
+	
+	public List<GuestbookVo> getMessageList(Long no) {
+		return guestbookRepository.findAll(no);
 	}
 	
 	public boolean deleteMessage(Long no, String password) {
@@ -27,16 +31,5 @@ public class GuestbookService {
 
 	public boolean addMessage(GuestbookVo vo) {
 		return guestbookRepository.insert(vo);
-	}
-
-	public List<GuestbookVo> findAll(Long no) {
-		return guestbookRepository.findAllBySN(no);
-	}
-
-
-
-	public Long deleteMessageBySpa(Long no) {
-		// 
-		return null;
 	}
 }

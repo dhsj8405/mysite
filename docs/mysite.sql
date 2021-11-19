@@ -215,11 +215,27 @@ update site set title = 'test1', welcome ='test1', profile = 'test3', descriptio
 
 
 
-select * from guestbook;
+select * from guestbook
+		order by no desc
+;
 -- 스크롤 이벤트 
 	select no, name, message
 		    from guestbook
-            where no < 49
-		order by no desc 
+            where no < -1
+		order by no desc
         limit 3;
- 
+        
+        
+-- node : emaillist
+select * from emaillist;
+-- 1) list
+select no, first_name as firstName , last_name  as lastName, email from emaillist order by no desc;
+-- 2) add
+insert into emaillist(first_name, last_name, email) values (?,?,?);
+
+-- node : guestbook
+-- 1) list
+select no, name, reg_date as regDate, message from guestbook;
+select * from guestbook order by no desc;
+delete from guestbook where no = '117';
+delete from guestbook where no = 48 and password =1234;

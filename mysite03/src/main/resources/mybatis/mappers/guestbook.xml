@@ -31,29 +31,24 @@
 		order by reg_date desc
 		]]>
 	</select>
-	
-	<select id="findAllBySN" parameterType="map" resultType="guestbookvo">
-		<choose>
-			<when test="no == -1">
-				<![CDATA[
-					select no, name, message
-				      from guestbook				      
-		          order by no desc
-		             limit 4; 
-	             ]]>
-	             
-			</when>
-			<otherwise>
-				<![CDATA[
-					select no, name, message
-				      from guestbook
-			         where no < #{no }
-			      order by no desc
-		             limit 4;
-				]]>
-			</otherwise>
-		</choose>
-	</select>
-	
+
+	<select id="findAllByNo" parameterType="long" resultType="guestbookvo">
+		<![CDATA[
+		  select no,
+		         name,
+		         message,
+		         date_format(reg_date, '%Y-%m-%d') as regDate
+		    from guestbook
+		]]>
+		<if test="_parameter > 0">
+			<![CDATA[
+			  where no < #{_parameter }
+			]]>
+		</if>
+		<![CDATA[
+	  	  order by no desc
+	  	  limit 0, 3
+	  	]]>
+	</select>	
 
 </mapper>
