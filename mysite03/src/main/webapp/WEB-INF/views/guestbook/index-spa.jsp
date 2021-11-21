@@ -107,7 +107,6 @@
 					"삭제": function(){
 						var no = $("#hidden-no").val();
 						var password = $("#password-delete").val();
-
 						$.ajax({
 							url: '${pageContext.request.contextPath }/guestbook/api/delete/' + no,
 							async: true,

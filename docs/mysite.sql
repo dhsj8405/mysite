@@ -239,3 +239,8 @@ select no, name, reg_date as regDate, message from guestbook;
 select * from guestbook order by no desc;
 delete from guestbook where no = '117';
 delete from guestbook where no = 48 and password =1234;
+
+select * from user;
+
+
+
